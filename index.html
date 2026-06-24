@@ -1,0 +1,3526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ButterBawd™ Pitch Assistant — Ritika's Brand Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN SYSTEM — ButterBawd Brand Palette
+   ============================================================ */
+:root {
+  --butter-primary: #7F6F58;
+  --butter-cream: #D7C4A6;
+  --butter-light: #FAF9F6;
+  --butter-linen: #F5F0E8;
+  --butter-dark: #2C1F14;
+  --butter-walnut: #3D3026;
+  --butter-sugar: #FEFBE8;
+  --butter-cocoa: #48160F;
+  --butter-warm: #C4A882;
+  --butter-pale: #EDE4D5;
+  --butter-gold: #B8975A;
+  --accent-rose: #D4917B;
+  --accent-sage: #8B9E7A;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(215,196,166,0.4);
+  --shadow-soft: 0 4px 24px rgba(127,111,88,0.12);
+  --shadow-card: 0 2px 16px rgba(44,31,20,0.08);
+  --shadow-hover: 0 8px 32px rgba(127,111,88,0.2);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--butter-light);
+  color: var(--butter-walnut);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   SIDEBAR NAV
+   ============================================================ */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: var(--butter-dark);
+  position: fixed;
+  top: 0; left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid rgba(215,196,166,0.15);
+}
+
+.sidebar-logo .brand-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--butter-cream);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.sidebar-logo .sub-mark {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--butter-warm);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  color: rgba(215,196,166,0.7);
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: rgba(215,196,166,0.08);
+  color: var(--butter-cream);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(127,111,88,0.5), rgba(184,151,90,0.3));
+  color: var(--butter-cream);
+  box-shadow: inset 0 0 0 1px rgba(215,196,166,0.2);
+}
+
+.nav-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 24px 24px;
+  border-top: 1px solid rgba(215,196,166,0.1);
+}
+
+.sidebar-footer .founder-tag {
+  font-size: 11px;
+  color: rgba(215,196,166,0.5);
+  line-height: 1.6;
+}
+
+.sidebar-footer .founder-tag strong {
+  color: var(--butter-cream);
+  display: block;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main-content {
+  margin-left: 240px;
+  flex: 1;
+  min-height: 100vh;
+}
+
+.page {
+  display: none;
+  padding: 40px 48px;
+  max-width: 1200px;
+  animation: fadeIn 0.35s ease;
+}
+
+.page.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   SHARED COMPONENTS
+   ============================================================ */
+.page-header {
+  margin-bottom: 36px;
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  line-height: 1.15;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--butter-primary);
+  margin-top: 8px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--butter-pale);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.card-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tag-primary { background: var(--butter-linen); color: var(--butter-primary); }
+.tag-gold { background: var(--butter-sugar); color: var(--butter-gold); }
+.tag-rose { background: #FDF0EB; color: var(--accent-rose); }
+.tag-sage { background: #EDF2E9; color: var(--accent-sage); }
+.tag-dark { background: var(--butter-dark); color: var(--butter-cream); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary {
+  background: var(--butter-primary);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--butter-dark); transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--butter-primary);
+  border: 1.5px solid var(--butter-cream);
+}
+.btn-outline:hover { background: var(--butter-linen); }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--butter-pale);
+  margin: 24px 0;
+}
+
+.info-box {
+  background: var(--butter-sugar);
+  border: 1px solid rgba(184,151,90,0.3);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--butter-walnut);
+  line-height: 1.6;
+}
+
+.info-box strong { color: var(--butter-gold); }
+
+.warn-box {
+  background: #FDF0EB;
+  border: 1px solid rgba(212,145,123,0.3);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--butter-walnut);
+  line-height: 1.6;
+}
+
+.warn-box strong { color: var(--accent-rose); }
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--butter-primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--butter-pale);
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--butter-walnut);
+  background: var(--white);
+  transition: var(--transition);
+  resize: vertical;
+}
+
+input[type="text"]:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--butter-primary);
+  box-shadow: 0 0 0 3px rgba(127,111,88,0.1);
+}
+
+textarea { min-height: 100px; }
+
+/* ============================================================
+   PAGE 1: HOME DASHBOARD
+   ============================================================ */
+.hero-banner {
+  background: linear-gradient(135deg, var(--butter-dark) 0%, #5C3D2A 60%, var(--butter-primary) 100%);
+  border-radius: var(--radius-xl);
+  padding: 44px 48px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.hero-banner::before {
+  content: '🧈';
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 120px;
+  opacity: 0.08;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--butter-cream);
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--butter-warm);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: rgba(215,196,166,0.8);
+  margin-top: 12px;
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.hero-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-badge {
+  background: rgba(215,196,166,0.15);
+  border: 1px solid rgba(215,196,166,0.25);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: var(--butter-cream);
+  font-weight: 500;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  border: 1px solid var(--butter-pale);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.stat-icon { font-size: 28px; margin-bottom: 10px; }
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--butter-dark);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--butter-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: var(--butter-warm);
+  margin-top: 4px;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.module-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  border: 1px solid var(--butter-pale);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+
+.module-card:hover {
+  border-color: var(--butter-warm);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.module-card .m-icon { font-size: 32px; margin-bottom: 12px; }
+.module-card .m-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  margin-bottom: 6px;
+}
+.module-card .m-desc { font-size: 12px; color: var(--butter-primary); line-height: 1.5; }
+
+.tip-card {
+  background: linear-gradient(135deg, var(--butter-sugar), var(--butter-linen));
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  border: 1px solid rgba(184,151,90,0.25);
+}
+
+.tip-of-day {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--butter-gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.tip-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--butter-dark);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.tip-source {
+  font-size: 12px;
+  color: var(--butter-primary);
+  margin-top: 8px;
+}
+
+/* ============================================================
+   PAGE 2: BRAND INTELLIGENCE
+   ============================================================ */
+.brand-dna-header {
+  background: linear-gradient(135deg, var(--butter-linen), var(--butter-pale));
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 28px;
+  border: 1px solid var(--butter-cream);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.brand-avatar {
+  width: 80px;
+  height: 80px;
+  background: var(--butter-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(44,31,20,0.25);
+}
+
+.brand-info h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--butter-dark);
+}
+
+.brand-info .brand-tagline {
+  font-size: 14px;
+  color: var(--butter-primary);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.brand-info .brand-meta {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.brand-meta-item {
+  font-size: 12px;
+  color: var(--butter-walnut);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fabric-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.fabric-card {
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--butter-pale);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.fabric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.fabric-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+.fabric-card.soft::after { background: linear-gradient(90deg, #C4A882, #D7C4A6); }
+.fabric-card.rib::after { background: linear-gradient(90deg, #8B9E7A, #A8B898); }
+.fabric-card.skin::after { background: linear-gradient(90deg, #7F6F58, #48160F); }
+
+.fabric-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--butter-dark);
+  margin-bottom: 4px;
+}
+.fabric-level { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--butter-primary); margin-bottom: 12px; }
+.fabric-desc { font-size: 13px; color: var(--butter-walnut); line-height: 1.6; }
+.fabric-bar { margin-top: 14px; }
+.fabric-bar-label { font-size: 11px; color: var(--butter-primary); margin-bottom: 6px; font-weight: 500; }
+.fabric-bar-track { background: var(--butter-linen); border-radius: 4px; height: 6px; }
+.fabric-bar-fill { height: 6px; border-radius: 4px; transition: var(--transition); }
+.fabric-card.soft .fabric-bar-fill { width: 30%; background: var(--butter-cream); }
+.fabric-card.rib .fabric-bar-fill { width: 60%; background: var(--accent-sage); }
+.fabric-card.skin .fabric-bar-fill { width: 90%; background: var(--butter-primary); }
+
+.comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.comp-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--butter-primary);
+  background: var(--butter-linen);
+  border-bottom: 2px solid var(--butter-pale);
+}
+.comp-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--butter-pale);
+  color: var(--butter-walnut);
+  vertical-align: top;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr.highlight-row td { background: rgba(127,111,88,0.04); font-weight: 600; color: var(--butter-dark); }
+.check { color: #6ab04c; }
+.cross { color: #e55039; }
+.partial { color: var(--butter-gold); }
+
+/* ============================================================
+   PAGE 3: PITCH DECK BUILDER
+   ============================================================ */
+.deck-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.slide-pill {
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid var(--butter-pale);
+  background: var(--white);
+  color: var(--butter-walnut);
+  transition: var(--transition);
+}
+
+.slide-pill.active {
+  background: var(--butter-primary);
+  border-color: var(--butter-primary);
+  color: var(--white);
+}
+
+.slide-pill:hover:not(.active) {
+  border-color: var(--butter-warm);
+  color: var(--butter-primary);
+}
+
+.slide-builder {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.slide-builder.active { display: block; }
+
+.slide-frame {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--butter-pale);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.slide-header {
+  background: linear-gradient(135deg, var(--butter-dark), #4A2E1A);
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slide-number {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--butter-warm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.slide-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--butter-cream);
+  margin-top: 4px;
+}
+
+.slide-purpose {
+  font-size: 12px;
+  color: rgba(215,196,166,0.7);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+.slide-body {
+  padding: 32px 36px;
+}
+
+.investor-lens {
+  background: var(--butter-sugar);
+  border-left: 3px solid var(--butter-gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+
+.investor-lens .lens-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--butter-gold);
+  margin-bottom: 4px;
+}
+
+.investor-lens .lens-text {
+  font-size: 13px;
+  color: var(--butter-walnut);
+  line-height: 1.6;
+}
+
+.red-flag-box {
+  background: #FDF0EB;
+  border-left: 3px solid var(--accent-rose);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+
+.red-flag-box .rf-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-rose);
+  margin-bottom: 4px;
+}
+
+.red-flag-box .rf-text {
+  font-size: 13px;
+  color: var(--butter-walnut);
+  line-height: 1.6;
+}
+
+.field-group { margin-bottom: 20px; }
+
+.field-suggestion {
+  font-size: 12px;
+  color: var(--butter-primary);
+  margin-top: 6px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.slide-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 36px;
+  border-top: 1px solid var(--butter-pale);
+  background: var(--butter-linen);
+}
+
+/* ============================================================
+   PAGE 4: SCRIPT & STORY COACH
+   ============================================================ */
+.pitch-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--butter-pale);
+  margin-bottom: 28px;
+}
+
+.pitch-tab {
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--butter-primary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: var(--transition);
+}
+
+.pitch-tab.active {
+  color: var(--butter-dark);
+  border-bottom-color: var(--butter-primary);
+}
+
+.pitch-tab:hover:not(.active) {
+  color: var(--butter-dark);
+}
+
+.pitch-section { display: none; }
+.pitch-section.active { display: block; animation: fadeIn 0.25s ease; }
+
+.script-box {
+  background: var(--butter-dark);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  color: var(--butter-cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.8;
+  font-weight: 400;
+  position: relative;
+}
+
+.script-box .script-duration {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--butter-warm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.script-box em { color: var(--butter-warm); font-style: italic; }
+.script-box strong { color: var(--white); font-weight: 600; }
+
+.qa-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--butter-pale);
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: var(--transition);
+}
+
+.qa-card:hover { box-shadow: var(--shadow-hover); }
+
+.qa-question {
+  padding: 16px 20px;
+  background: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.qa-q-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.qa-toggle {
+  font-size: 18px;
+  color: var(--butter-primary);
+  flex-shrink: 0;
+  transition: var(--transition);
+  font-weight: 300;
+}
+
+.qa-answer {
+  display: none;
+  padding: 16px 20px 20px;
+  background: var(--butter-linen);
+  border-top: 1px solid var(--butter-pale);
+}
+
+.qa-answer.open { display: block; }
+.qa-answer p { font-size: 14px; color: var(--butter-walnut); line-height: 1.7; }
+.qa-answer .answer-tip {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--butter-gold);
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Flashcard */
+.flashcard-container { perspective: 1000px; }
+
+.flashcard {
+  width: 100%;
+  height: 280px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, var(--butter-dark), #5C3D2A);
+  color: var(--butter-cream);
+}
+
+.flashcard-back {
+  background: linear-gradient(135deg, var(--butter-sugar), var(--butter-linen));
+  color: var(--butter-dark);
+  transform: rotateY(180deg);
+  border: 2px solid var(--butter-cream);
+}
+
+.fc-category {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+.fc-front-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fc-back-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--butter-walnut);
+}
+
+.fc-hint {
+  font-size: 11px;
+  opacity: 0.5;
+  margin-top: 16px;
+}
+
+/* ============================================================
+   PAGE 5: IDEA SANDBOX
+   ============================================================ */
+.sandbox-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+}
+
+.idea-input-area {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--butter-pale);
+  overflow: hidden;
+}
+
+.idea-input-header {
+  background: var(--butter-linen);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--butter-pale);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.idea-input-header span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--butter-dark);
+}
+
+.idea-tags-row {
+  display: flex;
+  gap: 8px;
+}
+
+.idea-tag-btn {
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--butter-pale);
+  background: var(--white);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--butter-walnut);
+}
+
+.idea-tag-btn.active {
+  background: var(--butter-primary);
+  border-color: var(--butter-primary);
+  color: var(--white);
+}
+
+.idea-list {
+  padding: 16px;
+}
+
+.idea-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--butter-pale);
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: var(--transition);
+  animation: fadeIn 0.3s ease;
+}
+
+.idea-item:hover { box-shadow: var(--shadow-card); }
+.idea-item-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.idea-item-text { font-size: 13px; color: var(--butter-walnut); line-height: 1.5; flex: 1; }
+.idea-item-cat { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--butter-primary); margin-top: 3px; }
+.idea-delete { font-size: 16px; color: var(--butter-cream); cursor: pointer; flex-shrink: 0; transition: var(--transition); }
+.idea-delete:hover { color: var(--accent-rose); }
+
+.collection-gen {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--butter-pale);
+  padding: 24px;
+}
+
+.color-swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.swatch { width: 36px; height: 36px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: var(--transition); }
+.swatch:hover { transform: scale(1.15); }
+.swatch.selected { border-color: var(--butter-dark); }
+
+.expansion-cards { margin-top: 24px; }
+.exp-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--butter-pale);
+  margin-bottom: 10px;
+  background: var(--white);
+  transition: var(--transition);
+}
+.exp-card:hover { box-shadow: var(--shadow-card); border-color: var(--butter-warm); }
+.exp-icon { font-size: 24px; }
+.exp-title { font-size: 14px; font-weight: 600; color: var(--butter-dark); }
+.exp-desc { font-size: 12px; color: var(--butter-primary); margin-top: 2px; }
+.exp-difficulty { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.diff-easy { background: #EDF2E9; color: var(--accent-sage); }
+.diff-medium { background: var(--butter-sugar); color: var(--butter-gold); }
+.diff-hard { background: #FDF0EB; color: var(--accent-rose); }
+
+/* ============================================================
+   PAGE 6: STRATEGY MAP
+   ============================================================ */
+.timeline-container { position: relative; }
+
+.timeline-line {
+  position: absolute;
+  left: 120px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--butter-cream), var(--butter-primary), var(--butter-dark));
+}
+
+.timeline-item {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  position: relative;
+}
+
+.timeline-date {
+  width: 120px;
+  padding-right: 24px;
+  text-align: right;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.timeline-date .tdate {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--butter-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.timeline-date .tphase {
+  font-size: 10px;
+  color: var(--butter-warm);
+  margin-top: 2px;
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--butter-primary);
+  border: 3px solid var(--butter-light);
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: 0 0 0 2px var(--butter-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-dot.completed { background: var(--butter-dark); box-shadow: 0 0 0 2px var(--butter-dark); }
+.timeline-dot.upcoming { background: var(--butter-linen); box-shadow: 0 0 0 2px var(--butter-cream); }
+
+.timeline-content {
+  flex: 1;
+  padding-left: 24px;
+  padding-bottom: 8px;
+}
+
+.timeline-content .tc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  margin-bottom: 6px;
+}
+
+.timeline-content .tc-items {
+  list-style: none;
+}
+
+.timeline-content .tc-items li {
+  font-size: 13px;
+  color: var(--butter-walnut);
+  padding: 3px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.timeline-content .tc-items li::before {
+  content: '→';
+  color: var(--butter-warm);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.mindmap-container {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--butter-pale);
+  padding: 32px;
+  overflow: auto;
+}
+
+.mindmap {
+  display: flex;
+  justify-content: center;
+  min-width: 700px;
+}
+
+.mm-center {
+  text-align: center;
+  position: relative;
+}
+
+.mm-hub {
+  display: inline-block;
+  background: var(--butter-dark);
+  color: var(--butter-cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 18px 28px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.mm-branches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.mm-branch {
+  background: var(--butter-linen);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  border: 1px solid var(--butter-pale);
+  border-top: 3px solid var(--butter-primary);
+  transition: var(--transition);
+}
+
+.mm-branch:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+.mm-branch .mm-b-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--butter-dark);
+  margin-bottom: 10px;
+}
+
+.mm-branch .mm-b-items { list-style: none; }
+
+.mm-branch .mm-b-items li {
+  font-size: 12px;
+  color: var(--butter-walnut);
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mm-branch .mm-b-items li::before {
+  content: '•';
+  color: var(--butter-warm);
+  font-weight: bold;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  height: 400px;
+}
+
+.matrix-cell {
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.matrix-cell .mc-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.matrix-cell .mc-items {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matrix-cell .mc-item {
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cell-do-now { background: linear-gradient(135deg, #EDF2E9, #DDE8D8); }
+.cell-do-now .mc-label { color: var(--accent-sage); }
+.cell-plan { background: linear-gradient(135deg, var(--butter-sugar), var(--butter-linen)); }
+.cell-plan .mc-label { color: var(--butter-gold); }
+.cell-delegate { background: linear-gradient(135deg, #F0F4FF, #E8ECFF); }
+.cell-delegate .mc-label { color: #6B7FC4; }
+.cell-defer { background: linear-gradient(135deg, #FAF0F0, #F5E8E8); }
+.cell-defer .mc-label { color: var(--accent-rose); }
+
+/* ============================================================
+   PAGE 7: INVESTOR PREP ACADEMY
+   ============================================================ */
+.glossary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+.glossary-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--butter-pale);
+  transition: var(--transition);
+}
+
+.glossary-card:hover { box-shadow: var(--shadow-hover); border-color: var(--butter-warm); }
+
+.glossary-term {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--butter-dark);
+  margin-bottom: 6px;
+}
+
+.glossary-abbr {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--butter-gold);
+  margin-bottom: 10px;
+}
+
+.glossary-def {
+  font-size: 13px;
+  color: var(--butter-walnut);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.glossary-example {
+  font-size: 12px;
+  color: var(--butter-primary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.investor-type-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+.inv-type-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--butter-pale);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.inv-type-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+
+.inv-type-header {
+  padding: 20px 22px;
+  text-align: center;
+}
+
+.inv-type-icon { font-size: 36px; margin-bottom: 10px; }
+.inv-type-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: var(--butter-dark); }
+.inv-type-stage { font-size: 12px; color: var(--butter-primary); margin-top: 4px; font-weight: 500; }
+
+.inv-type-body { padding: 0 22px 22px; font-size: 13px; color: var(--butter-walnut); line-height: 1.6; }
+.inv-type-body ul { padding-left: 16px; margin-top: 12px; }
+.inv-type-body li { margin-bottom: 5px; }
+
+.checklist { list-style: none; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--butter-pale);
+  margin-bottom: 8px;
+  background: var(--white);
+  font-size: 13px;
+  color: var(--butter-walnut);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.checklist li:hover { border-color: var(--butter-warm); }
+.checklist li.checked { background: #EDF2E9; border-color: rgba(139,158,122,0.4); }
+.checklist li.checked .cl-text { text-decoration: line-through; color: var(--accent-sage); }
+.cl-check { width: 20px; height: 20px; border: 2px solid var(--butter-cream); border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: var(--transition); }
+.checklist li.checked .cl-check { background: var(--accent-sage); border-color: var(--accent-sage); color: white; }
+
+.investor-fund-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+.fund-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  border: 1px solid var(--butter-pale);
+  transition: var(--transition);
+}
+
+.fund-card:hover { box-shadow: var(--shadow-hover); }
+
+.fund-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: var(--butter-dark); }
+.fund-focus { font-size: 12px; color: var(--butter-primary); margin-top: 3px; margin-bottom: 10px; }
+.fund-desc { font-size: 13px; color: var(--butter-walnut); line-height: 1.5; }
+.fund-meta { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+
+/* ============================================================
+   PAGE 8: MARKET INTELLIGENCE
+   ============================================================ */
+.market-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+
+.market-stat {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--butter-pale);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.market-stat:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+.market-stat .ms-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--butter-dark);
+  line-height: 1;
+}
+
+.market-stat .ms-unit { font-size: 18px; color: var(--butter-primary); }
+.market-stat .ms-label { font-size: 12px; color: var(--butter-primary); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.market-stat .ms-context { font-size: 12px; color: var(--butter-warm); margin-top: 4px; font-style: italic; }
+
+.trend-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--butter-pale);
+  display: flex;
+  gap: 16px;
+  transition: var(--transition);
+  margin-bottom: 12px;
+}
+
+.trend-card:hover { box-shadow: var(--shadow-hover); border-color: var(--butter-warm); }
+.trend-icon { font-size: 28px; flex-shrink: 0; }
+.trend-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--butter-dark); margin-bottom: 6px; }
+.trend-desc { font-size: 13px; color: var(--butter-walnut); line-height: 1.6; }
+.trend-bb-angle { font-size: 12px; color: var(--butter-gold); margin-top: 8px; font-weight: 600; }
+
+.comp-radar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.comp-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--butter-pale);
+  transition: var(--transition);
+}
+
+.comp-card:hover { box-shadow: var(--shadow-hover); }
+.comp-card.butterbawd-card { border-color: var(--butter-primary); border-width: 2px; background: var(--butter-sugar); }
+
+.comp-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--butter-dark); }
+.comp-type { font-size: 11px; font-weight: 600; color: var(--butter-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; margin-bottom: 12px; }
+
+.comp-attr { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--butter-pale); }
+.comp-attr:last-of-type { border-bottom: none; }
+.comp-attr-name { font-size: 12px; color: var(--butter-walnut); }
+.comp-attr-stars { color: var(--butter-gold); font-size: 13px; }
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--butter-linen); }
+::-webkit-scrollbar-thumb { background: var(--butter-cream); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--butter-warm); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .sidebar { width: 200px; }
+  .main-content { margin-left: 200px; }
+  .page { padding: 28px 28px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .module-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .fabric-cards { grid-template-columns: 1fr; }
+  .investor-type-cards { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; }
+  .page { padding: 20px; }
+  .market-stat-grid { grid-template-columns: 1fr; }
+  .comp-radar { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="app-layout">
+
+<!-- ============================================================
+     SIDEBAR
+     ============================================================ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand-mark">🧈 ButterBawd™</div>
+    <div class="sub-mark">Pitch Command Center</div>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" onclick="showPage('home')">
+      <span class="nav-icon">🏠</span> Dashboard
+    </button>
+    <button class="nav-item" onclick="showPage('brand')">
+      <span class="nav-icon">🎯</span> Brand Intelligence
+    </button>
+    <button class="nav-item" onclick="showPage('deck')">
+      <span class="nav-icon">📊</span> Pitch Deck Builder
+    </button>
+    <button class="nav-item" onclick="showPage('script')">
+      <span class="nav-icon">🎤</span> Script & Story Coach
+    </button>
+    <button class="nav-item" onclick="showPage('sandbox')">
+      <span class="nav-icon">🧠</span> Idea Sandbox
+    </button>
+    <button class="nav-item" onclick="showPage('strategy')">
+      <span class="nav-icon">🗺️</span> Strategy Map
+    </button>
+    <button class="nav-item" onclick="showPage('academy')">
+      <span class="nav-icon">📚</span> Investor Academy
+    </button>
+    <button class="nav-item" onclick="showPage('market')">
+      <span class="nav-icon">📈</span> Market Intelligence
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="founder-tag">
+      <strong>Ritika Chowdhury</strong>
+      Founder, ButterBawd™<br>
+      Built 2025 · Made in India 🇮🇳
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main class="main-content">
+
+<!-- ==================== PAGE 1: HOME ==================== -->
+<div class="page active" id="page-home">
+  <div class="hero-banner">
+    <div class="hero-title">Your Pitch,<br><em>Your Story.</em></div>
+    <div class="hero-sub">Welcome to your personal command center, Ritika. Everything you need to build a compelling investor pitch — from the first slide to the final answer — is right here.</div>
+    <div class="hero-badges">
+      <span class="hero-badge">📊 Pitch Deck Builder</span>
+      <span class="hero-badge">🎤 Script Coach</span>
+      <span class="hero-badge">📚 Investor 101</span>
+      <span class="hero-badge">🗺️ Strategy Map</span>
+      <span class="hero-badge">🧠 Idea Sandbox</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon">📸</div>
+      <div class="stat-value">8.3K</div>
+      <div class="stat-label">Instagram Followers</div>
+      <div class="stat-sub">@butterbawd · 108 posts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">👗</div>
+      <div class="stat-value">3</div>
+      <div class="stat-label">Proprietary Fabrics</div>
+      <div class="stat-sub">SoftServe · RibCloud · SkinMelt</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📰</div>
+      <div class="stat-value">2+</div>
+      <div class="stat-label">Media Features</div>
+      <div class="stat-sub">Elle India · The New Indian Express</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🏭</div>
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Made in India</div>
+      <div class="stat-sub">Own manufacturing facility</div>
+    </div>
+  </div>
+
+  <div class="module-grid">
+    <div class="module-card" onclick="showPage('brand')">
+      <div class="m-icon">🎯</div>
+      <div class="m-title">Brand Intelligence</div>
+      <div class="m-desc">Your brand DNA, product pillars, and competitive positioning all in one place.</div>
+    </div>
+    <div class="module-card" onclick="showPage('deck')">
+      <div class="m-icon">📊</div>
+      <div class="m-title">Pitch Deck Builder</div>
+      <div class="m-desc">Build your 12-slide deck slide by slide with investor guidance on every frame.</div>
+    </div>
+    <div class="module-card" onclick="showPage('script')">
+      <div class="m-icon">🎤</div>
+      <div class="m-title">Script & Story Coach</div>
+      <div class="m-desc">Craft your elevator pitch, founder story, and prep for tough investor Q&A.</div>
+    </div>
+    <div class="module-card" onclick="showPage('sandbox')">
+      <div class="m-icon">🧠</div>
+      <div class="m-title">Idea Sandbox</div>
+      <div class="m-desc">Brainstorm new collections, hiring plans, content ideas, and brand expansions.</div>
+    </div>
+    <div class="module-card" onclick="showPage('strategy')">
+      <div class="m-icon">🗺️</div>
+      <div class="m-title">Strategy Map</div>
+      <div class="m-desc">Your 18-month roadmap, mind map, priority matrix, and hiring timeline.</div>
+    </div>
+    <div class="module-card" onclick="showPage('academy')">
+      <div class="m-icon">📚</div>
+      <div class="m-title">Investor Academy</div>
+      <div class="m-desc">Learn every term, understand investor types, and pass your due diligence checklist.</div>
+    </div>
+    <div class="module-card" onclick="showPage('market')">
+      <div class="m-icon">📈</div>
+      <div class="m-title">Market Intelligence</div>
+      <div class="m-desc">TAM data, competitor analysis, and the trends that prove your timing is perfect.</div>
+    </div>
+    <div class="module-card" style="border: 2px dashed var(--butter-pale); background: var(--butter-linen); cursor: default;">
+      <div class="m-icon">✨</div>
+      <div class="m-title" style="color: var(--butter-primary);">More Coming</div>
+      <div class="m-desc">This assistant grows with you. More tools as you need them.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-of-day">💡 Pitch Tip of the Day</div>
+    <div class="tip-text">"Investors don't fund products — they fund founders with conviction. Your job in the room is to make them believe that <em>you</em> are the only person who could build this."</div>
+    <div class="tip-source">— Investor prep principle, Indian D2C fundraising playbook 2025</div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2: BRAND INTELLIGENCE ==================== -->
+<div class="page" id="page-brand">
+  <div class="page-header">
+    <div class="page-title">🎯 Brand Intelligence</div>
+    <div class="page-subtitle">Everything that makes ButterBawd™ what it is — your story, your science, your strengths.</div>
+  </div>
+
+  <div class="brand-dna-header">
+    <div class="brand-avatar">🧈</div>
+    <div class="brand-info">
+      <h2>ButterBawd™</h2>
+      <div class="brand-tagline">"Sculpted Essentials. Butter-soft fits you'll love. Made for real bodies."</div>
+      <div class="brand-meta">
+        <div class="brand-meta-item">📅 Founded 2025</div>
+        <div class="brand-meta-item">👤 Ritika Chowdhury</div>
+        <div class="brand-meta-item">📍 India</div>
+        <div class="brand-meta-item">🏭 In-house manufacturing</div>
+        <div class="brand-meta-item">💰 ~₹1,799 price point</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🧵 The Three Fabric Pillars</div>
+  <div class="info-box" style="margin-bottom: 16px;">
+    <strong>Why this matters to investors:</strong> Proprietary fabrics are a moat. They can't be easily copied. This is what separates ButterBawd from every other brand selling "sculpted tops." You're not just a clothing brand — you're a fabric technology company.
+  </div>
+
+  <div class="fabric-cards">
+    <div class="fabric-card soft">
+      <div class="tag tag-primary" style="margin-bottom: 10px;">Low Compression</div>
+      <div class="fabric-name">SoftServe™</div>
+      <div class="fabric-level">Everyday Layering</div>
+      <div class="fabric-desc">Lightweight, maximum casual comfort. Ideal for all-day wear in India's warm, humid climate. The entry point into the ButterBawd universe — comfortable enough to forget you're wearing it.</div>
+      <div class="fabric-bar">
+        <div class="fabric-bar-label">Compression Level</div>
+        <div class="fabric-bar-track"><div class="fabric-bar-fill"></div></div>
+      </div>
+    </div>
+    <div class="fabric-card rib">
+      <div class="tag tag-sage" style="margin-bottom: 10px;">Medium Compression</div>
+      <div class="fabric-name">RibCloud™</div>
+      <div class="fabric-level">Structured Support</div>
+      <div class="fabric-desc">A micro-ribbed knit engineered for stretch with subtle structure. Provides gentle shaping while remaining breathable. The middle ground between casual and contoured — perfect for office-to-dinner versatility.</div>
+      <div class="fabric-bar">
+        <div class="fabric-bar-label">Compression Level</div>
+        <div class="fabric-bar-track"><div class="fabric-bar-fill"></div></div>
+      </div>
+    </div>
+    <div class="fabric-card skin">
+      <div class="tag tag-dark" style="margin-bottom: 10px;">High Compression</div>
+      <div class="fabric-name">SkinMelt™</div>
+      <div class="fabric-level">Signature Shapewear</div>
+      <div class="fabric-desc">The hero. 76% Polyamide, 24% Spandex. Heavy sculpting, seamless shapewear effect. Stretches and snaps back cleanly without restricting movement. The product that earned Elle India coverage and went viral.</div>
+      <div class="fabric-bar">
+        <div class="fabric-bar-label">Compression Level</div>
+        <div class="fabric-bar-track"><div class="fabric-bar-fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">⭐ The ButterBawd Moat — What Makes You Defensible</div>
+  <div class="card-grid card-grid-2" style="margin-bottom: 28px;">
+    <div class="card">
+      <div style="font-size: 24px; margin-bottom: 12px;">🏭</div>
+      <div class="section-title" style="font-size: 18px; margin-bottom: 8px;">Own Manufacturing</div>
+      <p style="font-size: 13px; color: var(--butter-walnut); line-height: 1.6;">ButterBawd controls its entire supply chain — from raw fabric engineering to finished garment. This means: lower COGS as you scale, faster iteration cycles, and quality control that no white-label brand can match.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 24px; margin-bottom: 12px;">🧪</div>
+      <div class="section-title" style="font-size: 18px; margin-bottom: 8px;">Proprietary Fabrics</div>
+      <p style="font-size: 13px; color: var(--butter-walnut); line-height: 1.6;">SoftServe™, RibCloud™, and SkinMelt™ are not available anywhere else. This IP creates a real barrier to entry and justifies a premium price point in a market flooded with commodity basics.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 24px; margin-bottom: 12px;">🌏</div>
+      <div class="section-title" style="font-size: 18px; margin-bottom: 8px;">Climate-Specific Design</div>
+      <p style="font-size: 13px; color: var(--butter-walnut); line-height: 1.6;">No global shapewear brand engineers for India's hot, humid tropical climate. ButterBawd's fabrics are breathable AND compressive — solving a real pain point that SKIMS, Zivame, and others have ignored.</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 24px; margin-bottom: 12px;">✨</div>
+      <div class="section-title" style="font-size: 18px; margin-bottom: 8px;">Aesthetic Identity</div>
+      <p style="font-size: 13px; color: var(--butter-walnut); line-height: 1.6;">The "Pilates Princess" aesthetic with muted colorways (Cocoa Whip, Sugar Blush, Spiced Butter) speaks to a very specific, aspirational Indian woman. The brand identity is strong, consistent, and growing organically.</p>
+    </div>
+  </div>
+
+  <div class="section-title">🎯 Target Customer — The ButterBawd Woman</div>
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="card-grid card-grid-3" style="gap: 0;">
+      <div style="padding-right: 24px; border-right: 1px solid var(--butter-pale);">
+        <div class="tag tag-primary" style="margin-bottom: 12px;">Demographics</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--butter-walnut); line-height: 2;">
+          <li>📅 Age: 22–38 years</li>
+          <li>📍 Urban metro + Tier II cities</li>
+          <li>💼 Working professional / student</li>
+          <li>💰 Monthly income ₹40K–₹1.5L+</li>
+          <li>📱 Instagram-native, trend-aware</li>
+        </ul>
+      </div>
+      <div style="padding: 0 24px; border-right: 1px solid var(--butter-pale);">
+        <div class="tag tag-gold" style="margin-bottom: 12px;">Psychographics</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--butter-walnut); line-height: 2;">
+          <li>✨ Body-confident, not body-obsessed</li>
+          <li>🏋️ Pilates, yoga, wellness lifestyle</li>
+          <li>👗 Fashion-forward but practical</li>
+          <li>🇮🇳 Proud of supporting Indian brands</li>
+          <li>😤 Frustrated by poor fit options</li>
+        </ul>
+      </div>
+      <div style="padding-left: 24px;">
+        <div class="tag tag-rose" style="margin-bottom: 12px;">Pain Points Solved</div>
+        <ul style="list-style: none; font-size: 13px; color: var(--butter-walnut); line-height: 2;">
+          <li>🔥 Shapewear that overheats</li>
+          <li>👙 Tops that need a bra</li>
+          <li>📦 Fast fashion that falls apart</li>
+          <li>🌍 Foreign brands with no India fit</li>
+          <li>💔 "Basic" basics with no identity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">⚔️ Competitive Landscape</div>
+  <div class="card" style="overflow-x: auto;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Brand</th>
+          <th>India-Made</th>
+          <th>Proprietary Fabric</th>
+          <th>Breathable Compression</th>
+          <th>Premium D2C</th>
+          <th>Aesthetic Brand</th>
+          <th>Price Point</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>🧈 ButterBawd™</td>
+          <td><span class="check">✓✓</span></td>
+          <td><span class="check">✓✓</span></td>
+          <td><span class="check">✓✓</span></td>
+          <td><span class="check">✓✓</span></td>
+          <td><span class="check">✓✓</span></td>
+          <td>₹1,799</td>
+        </tr>
+        <tr>
+          <td>BlissClub</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">◐</span></td>
+          <td><span class="partial">◐</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td>₹1,500–₹2,500</td>
+        </tr>
+        <tr>
+          <td>Zivame</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">◐</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td>₹500–₹1,500</td>
+        </tr>
+        <tr>
+          <td>SKIMS (global)</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓✓</span></td>
+          <td>₹4,000+</td>
+        </tr>
+        <tr>
+          <td>PrettySecrets</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td>₹400–₹900</td>
+        </tr>
+        <tr>
+          <td>IDEO</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="partial">◐</span></td>
+          <td><span class="partial">◐</span></td>
+          <td>₹800–₹1,600</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size: 11px; color: var(--butter-primary); margin-top: 12px;">✓✓ = Strong | ✓ = Yes | ◐ = Partial | ✗ = No</p>
+  </div>
+</div>
+
+<!-- ==================== PAGE 3: PITCH DECK BUILDER ==================== -->
+<div class="page" id="page-deck">
+  <div class="page-header">
+    <div class="page-title">📊 Pitch Deck Builder</div>
+    <div class="page-subtitle">Build your investor pitch slide by slide. Each slide is pre-filled with ButterBawd content, with guidance on what investors are really looking for — and what to avoid.</div>
+  </div>
+
+  <div class="info-box" style="margin-bottom: 24px;">
+    <strong>First time pitching?</strong> A pitch deck is usually 10–15 slides that tells investors the story of your business: what problem exists, how you solve it, how big the market is, how much money you've made, and why your team can win. Think of it like a well-designed magazine spread — visual, punchy, and leaving them wanting to know more. Your goal is NOT to share every detail. It's to earn a second meeting.
+  </div>
+
+  <div class="deck-nav" id="deck-nav">
+    <div class="slide-pill active" onclick="showSlide(1)">1. Cover</div>
+    <div class="slide-pill" onclick="showSlide(2)">2. Problem</div>
+    <div class="slide-pill" onclick="showSlide(3)">3. Solution</div>
+    <div class="slide-pill" onclick="showSlide(4)">4. Market Size</div>
+    <div class="slide-pill" onclick="showSlide(5)">5. Product</div>
+    <div class="slide-pill" onclick="showSlide(6)">6. Traction</div>
+    <div class="slide-pill" onclick="showSlide(7)">7. Business Model</div>
+    <div class="slide-pill" onclick="showSlide(8)">8. Competition</div>
+    <div class="slide-pill" onclick="showSlide(9)">9. Go-To-Market</div>
+    <div class="slide-pill" onclick="showSlide(10)">10. Team</div>
+    <div class="slide-pill" onclick="showSlide(11)">11. Financials</div>
+    <div class="slide-pill" onclick="showSlide(12)">12. The Ask</div>
+  </div>
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide-builder active" id="slide-1">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 01 / 12</div>
+          <div class="slide-name">Cover Slide</div>
+          <div class="slide-purpose">Your first impression. Make it unmistakably ButterBawd.</div>
+        </div>
+        <span class="tag tag-primary">~5 seconds to hook them</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor sees</div>
+          <div class="lens-text">Before you say a word, this slide is projected. It should communicate: who you are, what you do, and what vibe you carry. A strong cover creates curiosity. A weak one creates skepticism before you've even started.</div>
+        </div>
+        <div class="field-group">
+          <label>Brand Name</label>
+          <input type="text" id="s1-name" value="ButterBawd™" placeholder="Your brand name">
+        </div>
+        <div class="field-group">
+          <label>One-Line Description (the "what we do" line)</label>
+          <input type="text" id="s1-tagline" value="India's first climate-engineered sculpting essentials for the modern Indian woman." placeholder="One powerful sentence describing your brand">
+          <div class="field-suggestion">💡 Suggestion: Keep it to 10–15 words. Focus on who you serve and what makes you different. Avoid jargon like "disrupting" or "revolutionizing."</div>
+        </div>
+        <div class="field-group">
+          <label>Founder Name & Title</label>
+          <input type="text" id="s1-founder" value="Ritika Chowdhury, Founder & CEO" placeholder="Your name and title">
+        </div>
+        <div class="field-group">
+          <label>Contact & Website</label>
+          <input type="text" id="s1-contact" value="www.butterbawd.com | @butterbawd" placeholder="Website and Instagram handle">
+        </div>
+        <div class="red-flag-box">
+          <div class="rf-label">🚩 Common mistake</div>
+          <div class="rf-text">Don't put your funding ask, financial projections, or revenue numbers on the cover slide. Keep this slide clean, confident, and visual. One logo, one line, one name.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <span style="font-size: 12px; color: var(--butter-primary);">All fields auto-save to your browser</span>
+        <button class="btn btn-primary" onclick="showSlide(2)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: PROBLEM -->
+  <div class="slide-builder" id="slide-2">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 02 / 12</div>
+          <div class="slide-name">The Problem</div>
+          <div class="slide-purpose">Make investors feel the frustration your customer feels every day.</div>
+        </div>
+        <span class="tag tag-rose">Make them feel it</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor needs to understand</div>
+          <div class="lens-text">A great problem slide creates an "aha!" moment. They should think: "Oh, I know someone who has this exact problem." For ButterBawd, the problem is very real, very specific, and very underserved.</div>
+        </div>
+        <div class="field-group">
+          <label>The Core Problem (2–3 bullet points)</label>
+          <textarea id="s2-problem">• Indian women have NO breathable compression wear engineered for tropical heat — existing shapewear suffocates in 30°C+ weather.
+
+• Global brands (SKIMS, Spanx) don't understand Indian body types, climate, or price expectations.
+
+• Local brands offer generic "basics" with no fabric innovation, no fit science, and no aesthetic identity — leaving a ₹10,000+ Cr market massively underserved.</textarea>
+          <div class="field-suggestion">💡 Use real data or emotions. Example: "We surveyed 200 Indian women — 78% said they've stopped wearing shapewear in summer because it's unbearable." If you have any numbers, add them here.</div>
+        </div>
+        <div class="field-group">
+          <label>Who Has This Problem? (Customer quote or persona)</label>
+          <textarea id="s2-persona" style="min-height: 70px;">"I want to look snatched for brunch in Mumbai, but every sculpting top I own turns into a sweat trap by noon." — Priya, 27, Mumbai.</textarea>
+        </div>
+        <div class="red-flag-box">
+          <div class="rf-label">🚩 Common mistake</div>
+          <div class="rf-text">Don't make the problem too broad ("fashion is a big industry"). The more specific and emotional your problem, the more credible your solution. Investors fund solutions to real, urgent, painful problems.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(1)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(3)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION -->
+  <div class="slide-builder" id="slide-3">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 03 / 12</div>
+          <div class="slide-name">The Solution</div>
+          <div class="slide-purpose">Show exactly how ButterBawd solves the problem — not just "we make clothes."</div>
+        </div>
+        <span class="tag tag-sage">Your moment to shine</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor needs to see</div>
+          <div class="lens-text">This is where your product comes alive. Don't just describe it — show the contrast: "Before ButterBawd, she had X problem. With ButterBawd, she gets Y." The proprietary fabrics are your hero here.</div>
+        </div>
+        <div class="field-group">
+          <label>Your Solution (the ButterBawd answer)</label>
+          <textarea id="s3-solution">ButterBawd™ is India's first sculpting essentials brand with in-house engineered compression fabrics designed for Indian weather, Indian bodies, and the modern Indian woman's lifestyle.
+
+Our proprietary three-tier fabric system — SoftServe™, RibCloud™, and SkinMelt™ — delivers sculpting, breathability, and second-skin fit without the heat, discomfort, or compromise of generic shapewear.</textarea>
+        </div>
+        <div class="field-group">
+          <label>Key Product Differentiators (3 bullets)</label>
+          <textarea id="s3-diff" style="min-height: 80px;">• Breathable compression: High sculpting + tropical breathability — a combination no brand offers
+• Double-lined for confidence: Worn without a bra, no pastie needed, stays in place all day
+• Made in India: Own manufacturing + own IP fabrics = quality control + margin advantage</textarea>
+        </div>
+        <div class="field-group">
+          <label>Star Products to Mention</label>
+          <input type="text" id="s3-hero" value="SkinMelt™ Heartline Melt Top (viral), Butter Melt Zip Top, Square Neck Bodysuit (₹1,799)">
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(2)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(4)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: MARKET -->
+  <div class="slide-builder" id="slide-4">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 04 / 12</div>
+          <div class="slide-name">Market Size</div>
+          <div class="slide-purpose">Prove this is a massive, growing, and winnable opportunity.</div>
+        </div>
+        <span class="tag tag-gold">Show the size of the prize</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor needs to believe</div>
+          <div class="lens-text">Investors need to believe this market is big enough to build a large business. They also want to see you're not chasing all of it — just the realistic slice (SOM) that you can own in the next 3–5 years. Learn these three terms: TAM → SAM → SOM.</div>
+        </div>
+        <div class="info-box" style="margin-bottom: 16px;">
+          <strong>TAM</strong> = Total Addressable Market (the entire industry). <strong>SAM</strong> = Serviceable Addressable Market (the part you can reach). <strong>SOM</strong> = Serviceable Obtainable Market (the part you'll actually win). Always go TAM → SAM → SOM, from big to small.
+        </div>
+        <div class="card-grid card-grid-3" style="margin-bottom: 16px; gap: 12px;">
+          <div style="text-align: center; background: var(--butter-linen); border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--butter-pale);">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--butter-dark);">$700M+</div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--butter-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">TAM</div>
+            <div style="font-size: 11px; color: var(--butter-walnut); margin-top: 6px;">Indian shapewear + athleisure market (2025)</div>
+          </div>
+          <div style="text-align: center; background: var(--butter-linen); border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--butter-pale);">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--butter-dark);">$150M+</div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--butter-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">SAM</div>
+            <div style="font-size: 11px; color: var(--butter-walnut); margin-top: 6px;">Premium D2C sculpting wear — metro + Tier II</div>
+          </div>
+          <div style="text-align: center; background: var(--butter-linen); border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--butter-pale);">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--butter-dark);">₹10Cr+</div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--butter-gold); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;">SOM (Year 3)</div>
+            <div style="font-size: 11px; color: var(--butter-walnut); margin-top: 6px;">Realistic target — your 3-year win</div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Your Market Notes (add your own data here)</label>
+          <textarea id="s4-notes" style="min-height: 70px;">Indian shapewear market growing at 8–10% CAGR. 460M+ Indian women online by 2026. BlissClub reported 51% revenue growth in FY25 — proving demand is real and accelerating.</textarea>
+          <div class="field-suggestion">💡 Add your own customer research or social media data here to back up the opportunity with ground-level proof.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(3)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(5)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: PRODUCT -->
+  <div class="slide-builder" id="slide-5">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 05 / 12</div>
+          <div class="slide-name">Product Deep Dive</div>
+          <div class="slide-purpose">This is where you get sensory. Make them want to touch it.</div>
+        </div>
+        <span class="tag tag-primary">Show, don't tell</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor is looking for</div>
+          <div class="lens-text">Is this actually a better product, or just a nicely photographed one? They want to see real differentiators, not marketing language. Mention your fabric IP, your double-lining, your colorways — the details that prove you've thought deeply about the customer.</div>
+        </div>
+        <div class="field-group">
+          <label>Product Philosophy</label>
+          <textarea id="s5-philosophy" style="min-height: 70px;">ButterBawd™ doesn't sell "basics" — it engineers them. Every product begins with a fabric question: what does the Indian woman's body actually need in Indian weather? The answer drives design, not the other way around.</textarea>
+        </div>
+        <div class="field-group">
+          <label>Key Design Features</label>
+          <textarea id="s5-features">• Double-lined for bra-free confidence — worn solo with pasties or seamless undergarments
+• Proprietary 3-level compression system — SoftServe / RibCloud / SkinMelt
+• Climate-engineered: breathable + compressive (76% Polyamide, 24% Spandex in SkinMelt)
+• Signature colorways: Cocoa Whip, Sugar Blush, Spiced Butter, Buttered Pop
+• Seamless construction: no riding, no digging, no readjusting</textarea>
+        </div>
+        <div class="field-group">
+          <label>Current Bestsellers + Price Points</label>
+          <textarea id="s5-products" style="min-height: 70px;">• Heartline Melt Top — SkinMelt™ sweetheart neckline, viral product | ₹1,799
+• Butter Melt Zip Top — full-sleeve athleisure zip, contouring | ₹1,799
+• Square Neck Bodysuit — stays tucked, no ride-up, final-sale hygiene policy | ₹1,799</textarea>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(4)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(6)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: TRACTION -->
+  <div class="slide-builder" id="slide-6">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 06 / 12</div>
+          <div class="slide-name">Traction</div>
+          <div class="slide-purpose">Proof that real people love and buy ButterBawd — even early signals matter.</div>
+        </div>
+        <span class="tag tag-gold">Your most important slide</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor is asking themselves</div>
+          <div class="lens-text">Has anyone paid money for this? Do customers come back? Is there organic buzz, or is every order bought through ads? Traction is the single biggest filter — even early, imperfect traction shows that the market is real.</div>
+        </div>
+        <div class="warn-box" style="margin-bottom: 16px;">
+          <strong>⚠️ Be honest here.</strong> Never inflate numbers. Investors do due diligence — they will find out. But also: don't undersell real wins. 8,300 Instagram followers with 108 curated posts, media features in Elle India, and a viral product IS meaningful traction for a brand launched in 2025.
+        </div>
+        <div class="field-group">
+          <label>Revenue / GMV (Add your numbers or use placeholder)</label>
+          <textarea id="s6-revenue" style="min-height: 60px;">₹[X] in revenue since launch | [X] orders fulfilled | ₹1,799 avg order value
+Note: Update this with your actual numbers before pitching.</textarea>
+        </div>
+        <div class="field-group">
+          <label>Community & Social Proof</label>
+          <textarea id="s6-social" style="min-height: 70px;">• 8,329 Instagram followers (@butterbawd) — grown organically, 108 curated posts
+• 0 paid following (1 account followed — fully brand-controlled, no vanity metrics)
+• Viral product: SugarBlush Heartline Melt Top — earned without paid amplification
+• Editorial: Elle India feature + The New Indian Express coverage
+• Shopify-powered store via Gokwik checkout integration (D2C-ready infrastructure)</textarea>
+        </div>
+        <div class="field-group">
+          <label>Repeat Purchase / Customer Love Signals</label>
+          <input type="text" id="s6-repeat" value="[Add repeat purchase rate here — even 1–2 examples of DMs / reviews that show deep love]">
+          <div class="field-suggestion">💡 Screenshot DMs, Shopify reviews, or WhatsApp messages from happy customers. These emotional proof points are often more persuasive than charts.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(5)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(7)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: BUSINESS MODEL -->
+  <div class="slide-builder" id="slide-7">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 07 / 12</div>
+          <div class="slide-name">Business Model</div>
+          <div class="slide-purpose">How does ButterBawd make money — and how does that improve over time?</div>
+        </div>
+        <span class="tag tag-primary">Show you understand margins</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor is calculating in their head</div>
+          <div class="lens-text">Revenue is nice. Margin is everything. They want to know: What does it cost to make a garment? What do you sell it for? What's left after shipping, payment gateway, returns, and marketing? That remaining number — contribution margin — is what they care about most.</div>
+        </div>
+        <div class="info-box" style="margin-bottom: 16px;">
+          <strong>Contribution Margin formula:</strong> Selling Price − COGS − Shipping − Payment Gateway − Returns − Marketing = Contribution Margin. A healthy D2C brand aims for 40–60%+ contribution margin.
+        </div>
+        <div class="field-group">
+          <label>Revenue Model</label>
+          <textarea id="s7-model" style="min-height: 80px;">• Primary: D2C via website (butterbawd.com / Shopify) — 100% of current revenue
+• Price point: ₹1,799 avg selling price (bodysuits, tops)
+• Future channels: Quick commerce (Blinkit, Zepto), Nykaa Fashion, pop-up retail
+• Exchange policy: 3-day delivery window, ₹150 logistics fee (protects margins)
+• Bodysuit policy: Final sale — no returns (hygiene + margin protection)</textarea>
+        </div>
+        <div class="field-group">
+          <label>Unit Economics (fill in your actuals)</label>
+          <textarea id="s7-unit" style="min-height: 80px;">Selling Price: ₹1,799
+COGS (in-house manufacturing): ₹[X]
+Gross Margin: [X]%
+Shipping + Gateway: ₹[X]
+Contribution Margin: [X]%
+
+Key advantage: In-house manufacturing + own fabrics = COGS improves at scale.</textarea>
+          <div class="field-suggestion">💡 Even if you don't have all numbers finalized, showing that you understand unit economics and can articulate the path to profitability builds enormous investor confidence.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(6)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(8)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: COMPETITION -->
+  <div class="slide-builder" id="slide-8">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 08 / 12</div>
+          <div class="slide-name">Competitive Positioning</div>
+          <div class="slide-purpose">Show exactly where ButterBawd wins — and why you can't be easily copied.</div>
+        </div>
+        <span class="tag tag-rose">Know your battlefield</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ The question investors are really asking</div>
+          <div class="lens-text">If you say "we have no competition," you've lost the room. Every sophisticated investor knows there's always competition. Acknowledging competitors and clearly articulating your advantage shows maturity and strategic clarity.</div>
+        </div>
+        <div class="field-group">
+          <label>Your Positioning Statement</label>
+          <textarea id="s8-position" style="min-height: 70px;">ButterBawd sits at the intersection of premium aesthetics, proprietary fabric tech, and Made-in-India manufacturing — a positioning no existing brand occupies. We are:
+• More affordable than global brands (SKIMS)
+• More premium and technical than domestic brands (Zivame, PrettySecrets)
+• More aesthetic and curated than athleisure players (BlissClub)
+• The only brand solving breathability + compression for Indian climates</textarea>
+        </div>
+        <div class="field-group">
+          <label>Why Can't Competitors Copy You?</label>
+          <textarea id="s8-moat" style="min-height: 80px;">1. FABRIC IP: SoftServe / RibCloud / SkinMelt took time and expertise to engineer. Copying takes years, not months.
+2. MANUFACTURING: Our own facility = quality control, speed, and margin that third-party manufacturers can't match.
+3. BRAND EQUITY: Our aesthetic identity (Cocoa Whip, Sugar Blush, Pilates Princess) is deeply cultural — it resonates because it's authentic, not templated.
+4. EDITORIAL PRESENCE: Elle India and organic viral traction builds real consumer trust that money alone can't buy overnight.</textarea>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(7)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(9)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: GTM -->
+  <div class="slide-builder" id="slide-9">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 09 / 12</div>
+          <div class="slide-name">Go-To-Market Strategy</div>
+          <div class="slide-purpose">How do you acquire customers — and keep them coming back?</div>
+        </div>
+        <span class="tag tag-sage">The growth engine</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What investors are assessing</div>
+          <div class="lens-text">CAC (Customer Acquisition Cost) is the biggest cost for most D2C brands. Investors want to see a brand that acquires customers efficiently and keeps them (retention). Organic channels (content, community, PR) are gold — they want to see you're not dependent on paid ads alone.</div>
+        </div>
+        <div class="field-group">
+          <label>Current Customer Acquisition Strategy</label>
+          <textarea id="s9-current" style="min-height: 80px;">• Organic Instagram: 8,329 followers, 108 posts — the primary discovery engine
+• Editorial PR: Elle India + The New Indian Express features drive organic brand discovery
+• Viral product moments: SugarBlush Heartline Melt Top — word-of-mouth flywheel
+• Influencer micro-partnerships: [Add any existing collaborations]
+• Community: repeat customers via direct Instagram DMs + WhatsApp</textarea>
+        </div>
+        <div class="field-group">
+          <label>Planned GTM Expansion (with funding)</label>
+          <textarea id="s9-planned" style="min-height: 80px;">• Nykaa Fashion listing — reach 50M+ registered shoppers with existing purchase intent
+• Influencer program: 10–20 micro-influencers (Pilates, yoga, lifestyle) with authentic fit
+• Quick commerce pilot: Blinkit / Zepto for instant delivery in metro cities
+• Lookbook drops: quarterly limited-edition colorway drops to drive urgency and social sharing
+• Pop-up experiences: lifestyle events, fitness studios, Pilates studios</textarea>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(8)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(10)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: TEAM -->
+  <div class="slide-builder" id="slide-10">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 10 / 12</div>
+          <div class="slide-name">The Team</div>
+          <div class="slide-purpose">Why is Ritika Chowdhury the right person to build this brand?</div>
+        </div>
+        <span class="tag tag-dark">They bet on people, not plans</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ The single most important question investors ask</div>
+          <div class="lens-text">"Why YOU?" Investors know that ideas change, markets shift, and plans evolve — but the right founder finds a way. Tell your story: what lived experience, skill, and obsession makes you the only person who could build ButterBawd?</div>
+        </div>
+        <div class="field-group">
+          <label>Founder Bio — Ritika Chowdhury</label>
+          <textarea id="s10-founder" style="min-height: 100px;">Ritika Chowdhury — Founder & CEO, ButterBawd™
+
+[Add your background here. Include: prior experience, why you started ButterBawd, what personal frustration drove you, any relevant skills in fashion / manufacturing / marketing / design, and what unique insight only YOU have about this market.]
+
+Example structure:
+• "I spent X years [in fashion / working in manufacturing / styling / etc.]"
+• "I started ButterBawd because [personal story — your own frustration with the problem]"
+• "What I uniquely bring: [specific expertise — fabric knowledge, manufacturing relationships, community, etc.]"</textarea>
+        </div>
+        <div class="field-group">
+          <label>Core Team (add any team members, advisors, or key hires planned)</label>
+          <textarea id="s10-team" style="min-height: 70px;">[Add team members here. If solo: "Currently building with key manufacturing and operations partners. Funds will be used to hire Operations Head and Head of Marketing within 6 months of funding."]
+
+Advisory Board: [Add any advisors you have or are pursuing]</textarea>
+          <div class="field-suggestion">💡 Even for a solo founder, showing AWARENESS of what gaps exist and a plan to fill them (with funding) is a strong signal. "I know what I don't know" is reassuring to investors.</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(9)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(11)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: FINANCIALS -->
+  <div class="slide-builder" id="slide-11">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 11 / 12</div>
+          <div class="slide-name">Financial Projections</div>
+          <div class="slide-purpose">Show your path to profitability — not just big, unbelievable numbers.</div>
+        </div>
+        <span class="tag tag-gold">Be realistic, be directional</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What investors expect at Seed stage</div>
+          <div class="lens-text">At seed stage, nobody expects perfect 5-year projections. What they DO expect: that you understand your unit economics, have a believable growth model, and know how long your runway is. They'll pressure-test your assumptions — so build them with logic, not hope.</div>
+        </div>
+        <div class="warn-box" style="margin-bottom: 16px;">
+          <strong>🚩 DO NOT:</strong> Put ₹100Cr revenue in Year 3 without a clear path. Investors will dismiss it immediately. Instead, show a bottom-up model: "If we sell X units at ₹Y average price via Z channels, we reach revenue W."
+        </div>
+        <div class="field-group">
+          <label>3-Year Revenue Projection (build bottom-up)</label>
+          <textarea id="s11-revenue" style="min-height: 90px;">Year 1 (Current): ₹[X] revenue | [X] orders | [X] % contribution margin
+Year 2 (Post-funding): ₹[X] target | Nykaa + Instagram + quick commerce | [X]% margin
+Year 3: ₹[X] target | Omnichannel | Path to EBITDA breakeven
+
+Key assumption: [Average order value stays ₹1,799] × [X monthly orders growing at Y% MoM]</textarea>
+        </div>
+        <div class="field-group">
+          <label>Use of Funds (how will investment be deployed?)</label>
+          <textarea id="s11-use" style="min-height: 80px;">• 40% — Inventory & production scaling (new colorways, expanded SKUs)
+• 25% — Marketing & brand building (influencer, digital, editorial)
+• 20% — Team hiring (Operations Head, Social Media Manager, Designer)
+• 10% — Technology (website CX, CRM, loyalty program)
+• 5%  — Working capital buffer</textarea>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(10)">← Previous</button>
+        <button class="btn btn-primary" onclick="showSlide(12)">Next Slide →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: THE ASK -->
+  <div class="slide-builder" id="slide-12">
+    <div class="slide-frame">
+      <div class="slide-header">
+        <div>
+          <div class="slide-number">Slide 12 / 12</div>
+          <div class="slide-name">The Ask</div>
+          <div class="slide-purpose">Ask confidently. Know exactly what you need and why.</div>
+        </div>
+        <span class="tag tag-dark">Close with confidence</span>
+      </div>
+      <div class="slide-body">
+        <div class="investor-lens">
+          <div class="lens-label">👁️ What the investor is listening for</div>
+          <div class="lens-text">The ask should feel earned by everything that came before. You've proven the problem, the solution, the market, the traction — now ask for what you need to get to the next stage. Be specific. Know your number, your runway, and what milestones you'll hit.</div>
+        </div>
+        <div class="field-group">
+          <label>Investment Ask</label>
+          <input type="text" id="s12-ask" value="₹[X] Cr (Seed Round) — [update with your actual target]" placeholder="₹X Cr / ₹X Lakhs Seed Round">
+          <div class="field-suggestion">💡 Common seed stage range for Indian D2C in 2025: ₹50L – ₹3Cr. The exact number should reflect 12–18 months of runway + specific milestone targets. Don't ask for too little (signals lack of ambition) or too much (signals lack of discipline).</div>
+        </div>
+        <div class="field-group">
+          <label>What Milestones Will This Funding Unlock?</label>
+          <textarea id="s12-milestones" style="min-height: 80px;">With this funding, ButterBawd will:
+• Launch 2 new fabric collections (Spring/Summer + Fall colorways)
+• Achieve ₹[X] Cr ARR within 12 months
+• Onboard Nykaa Fashion + 1 quick commerce platform
+• Build core team (Operations + Marketing) to support scale
+• Reach [X]K Instagram followers with 10-15% engagement rate</textarea>
+        </div>
+        <div class="field-group">
+          <label>What You're Offering (equity / instrument)</label>
+          <input type="text" id="s12-equity" value="[X]% equity at [pre-money valuation] — discuss with a CA before finalizing">
+          <div class="field-suggestion">💡 Consult a CA or startup advisor before deciding on valuation. First-time founders often either undervalue (give too much equity) or overvalue (unrealistic expectations). Research comparable seed deals in Indian D2C fashion.</div>
+        </div>
+        <div class="tip-card" style="margin-top: 20px;">
+          <div class="tip-of-day">🎯 Your closing line</div>
+          <div class="tip-text">"We're not just building a clothing brand. We're building the infrastructure to dress the modern Indian woman in something that finally understands her — her body, her weather, her ambition. We'd love ButterBawd's next chapter to begin with you."</div>
+        </div>
+      </div>
+      <div class="slide-nav-buttons">
+        <button class="btn btn-outline" onclick="showSlide(11)">← Previous</button>
+        <button class="btn btn-primary" onclick="showPage('script')">→ Now Let's Prep Your Script</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 4: SCRIPT & STORY COACH ==================== -->
+<div class="page" id="page-script">
+  <div class="page-header">
+    <div class="page-title">🎤 Script & Story Coach</div>
+    <div class="page-subtitle">Craft your pitch scripts, practice your story, and get ready for every question an investor might throw at you.</div>
+  </div>
+
+  <div class="pitch-tabs">
+    <div class="pitch-tab active" onclick="showPitchTab('elevator')">🚀 Elevator Pitches</div>
+    <div class="pitch-tab" onclick="showPitchTab('founder')">💫 Founder Story</div>
+    <div class="pitch-tab" onclick="showPitchTab('qa')">❓ Investor Q&A Bank</div>
+    <div class="pitch-tab" onclick="showPitchTab('flashcard')">🃏 Mock Q&A Cards</div>
+  </div>
+
+  <!-- ELEVATOR PITCHES -->
+  <div class="pitch-section active" id="pt-elevator">
+    <div class="section-title">Your Elevator Pitch — 3 Versions</div>
+    <div class="info-box" style="margin-bottom: 24px;">
+      <strong>What is an elevator pitch?</strong> Imagine you step into an elevator with an investor. You have 30 seconds before they get off. Can you make them want to know more? Practice all three versions — you never know which situation you'll be in.
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div class="tag tag-dark" style="margin-bottom: 12px;">⚡ 30-Second Version</div>
+      <div class="script-box">
+        <div class="script-duration">30 sec | ~75 words</div>
+        "ButterBawd is India's first sculpting essentials brand engineered for <em>our</em> weather and <em>our</em> bodies. We make compression tops and bodysuits using our own proprietary fabrics — breathable shapewear that actually works in 35-degree Mumbai humidity. We've already been featured in <strong>Elle India</strong>, built a community of 8,000+ on Instagram, and our hero product went viral organically. We're raising a seed round now to scale inventory and expand to Nykaa. I'm Ritika — want to see the deck?"
+      </div>
+    </div>
+
+    <div style="margin-bottom: 24px;">
+      <div class="tag tag-primary" style="margin-bottom: 12px;">🎯 2-Minute Version</div>
+      <div class="script-box">
+        <div class="script-duration">2 min | ~250 words</div>
+        "I want to tell you about a problem every Indian woman knows — you buy shapewear because you want to look snatched. But within an hour in Indian weather, you're overheated, uncomfortable, and peeling it off in a bathroom.<br><br>
+        I started <strong>ButterBawd</strong> because I couldn't find a single sculpting essential that was designed for <em>us</em> — Indian bodies, Indian climate, Indian aspirations.<br><br>
+        So we built our own fabrics. Three of them. <strong>SoftServe™</strong> for everyday wear, <strong>RibCloud™</strong> for structure, and <strong>SkinMelt™</strong> — our signature 76% Polyamide blend that gives real sculpting without suffocating you. We manufacture in-house in India. That means quality control, faster iteration, and margins that improve as we scale.<br><br>
+        In a few months, we've built 8,300 organic Instagram followers, earned coverage in <strong>Elle India</strong> and <strong>The New Indian Express</strong>, and our Heartline Melt Top went viral without a single rupee in paid ads.<br><br>
+        The Indian shapewear and athleisure market is <strong>$700M and growing</strong>. No brand owns the premium, aesthetic, climate-specific D2C space — that's exactly where we sit.<br><br>
+        We're raising ₹[X] Cr to expand inventory, scale our Nykaa presence, and build the team. I'd love to share more — do you have 20 minutes for a proper conversation?"
+      </div>
+    </div>
+
+    <div>
+      <div class="tag tag-rose" style="margin-bottom: 12px;">📊 5-Minute Full Pitch Opener</div>
+      <div class="script-box">
+        <div class="script-duration">5 min | ~600 words</div>
+        "I want to start with a question: How many of you know a woman who's worn shapewear and then taken it off halfway through an event because it was just too hot?<br><br>
+        [Pause. Let them nod.]<br><br>
+        <em>That's our customer. And that's our problem.</em><br><br>
+        My name is <strong>Ritika Chowdhury</strong>, and I'm the founder of ButterBawd — India's first sculpting essentials brand built specifically for Indian weather, Indian bodies, and the modern Indian woman's wardrobe.<br><br>
+        The global shapewear market is dominated by brands like SKIMS and Spanx — designed for Western climates, Western bodies, and Western price expectations. Locally, we have Zivame and PrettySecrets — but they're intimate wear brands, not body-sculpting lifestyle labels. And the fast fashion players? They use cheap materials, poor construction, and zero fabric science.<br><br>
+        The result: <em>there is no premium, breathable, aesthetically cohesive sculpting brand in India. We're building that brand.</em><br><br>
+        ButterBawd's product is built on three proprietary fabric innovations — SoftServe, RibCloud, and SkinMelt. These fabrics are engineered from scratch in our in-house facility. SkinMelt, our hero — 76% Polyamide, 24% Spandex — delivers genuine shapewear-level compression while remaining breathable in 35-degree heat. You can wear it all day. You actually want to.<br><br>
+        We've designed for confidence, not correction. Double-lined for bra-free wearability. Colorways that feel elevated: Cocoa Whip, Sugar Blush, Spiced Butter. Products that look as good on your Instagram as they do in person.<br><br>
+        Since launching, we've built 8,300 organic followers, earned editorial coverage in Elle India and The New Indian Express, and our Heartline Melt Top went viral — all without paid advertising. Our Shopify store runs on Gokwik's checkout infrastructure, and our community is growing with zero influencer spend.<br><br>
+        The market we're addressing is $700M in India alone, growing at 8–10% a year. BlissClub — our closest comparable — just reported 51% revenue growth in FY25. The wave is real. The timing is now.<br><br>
+        We're raising ₹[X] Cr to scale inventory, expand to Nykaa Fashion, and hire our core operations team. I know exactly what this capital will unlock: [specific milestones].<br><br>
+        <em>ButterBawd is not a fashion brand that makes bodies — it's an infrastructure brand that makes Indian women feel powerful in their own skin. I'd love your partnership in building it."</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDER STORY -->
+  <div class="pitch-section" id="pt-founder">
+    <div class="section-title">💫 Crafting Your Founder Story</div>
+    <div class="info-box" style="margin-bottom: 24px;">
+      <strong>Why this matters more than anything:</strong> Investors have heard a thousand pitches. What they remember is the founder who made them feel something. Your personal "why" — the moment that sparked ButterBawd — is the most powerful thing in your pitch. It can't be fabricated. Fill in the blanks below.
+    </div>
+    <div class="card" style="margin-bottom: 20px;">
+      <div class="section-title" style="font-size: 18px;">📝 Your Story Framework</div>
+      <div class="field-group">
+        <label>The Spark — What moment made you decide to start ButterBawd?</label>
+        <textarea id="founder-spark" placeholder="Example: 'I was getting ready for a wedding in Chennai and I realized I had to choose between looking the way I wanted to and being comfortable enough to actually enjoy the night. That moment made me ask: why doesn't this product exist?'">
+        </textarea>
+      </div>
+      <div class="field-group">
+        <label>The Expertise — What do you uniquely know or have that gives you an edge?</label>
+        <textarea id="founder-expertise" placeholder="Example: Your background in fashion / textiles / manufacturing / styling / community building. Even personal connections to manufacturers count.">
+        </textarea>
+      </div>
+      <div class="field-group">
+        <label>The Obsession — What about this problem keeps you up at night?</label>
+        <textarea id="founder-obsession" placeholder="Example: 'I can't stop thinking about the 460 million Indian women who don't have a brand built for them. That number drives everything I do.'">
+        </textarea>
+      </div>
+      <div class="field-group">
+        <label>The Vision — Where is ButterBawd in 5 years?</label>
+        <textarea id="founder-vision" placeholder="Example: 'I want ButterBawd to be the first brand Indian women reach for — the way American women reach for Spanx. A household name built on fabric intelligence and genuine care for our customer.'">
+        </textarea>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-of-day">💡 Story Coach Tip</div>
+      <div class="tip-text">Practice your story out loud. Not in your head — out loud. Record yourself on your phone. Watch it back. The first version will feel awkward. By the fifth, it'll feel like breathing. Authentic delivery matters more than perfect words.</div>
+    </div>
+  </div>
+
+  <!-- Q&A BANK -->
+  <div class="pitch-section" id="pt-qa">
+    <div class="section-title">❓ Investor Q&A Prep Bank</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      <strong>How to use this:</strong> Read each question. Think of your answer first. Then expand to see the ButterBawd-specific response. Practice until your answers feel natural, not memorized.
+    </div>
+
+    <div id="qa-list">
+      <!-- Q&As inserted by JS -->
+    </div>
+  </div>
+
+  <!-- FLASHCARD -->
+  <div class="pitch-section" id="pt-flashcard">
+    <div class="section-title">🃏 Mock Q&A Flashcards</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      <strong>How to use:</strong> Click the card to reveal the investor's question. Think of your answer aloud. Flip again to see the recommended response approach. Use the buttons to get a new card.
+    </div>
+    <div class="flashcard-container" style="max-width: 600px; margin: 0 auto 24px;">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-face flashcard-front">
+          <div class="fc-category" id="fc-category">Finance</div>
+          <div class="fc-front-text" id="fc-front">Click to reveal the investor question</div>
+          <div class="fc-hint">Tap to flip</div>
+        </div>
+        <div class="flashcard-face flashcard-back">
+          <div class="fc-category">Your Answer Should Cover:</div>
+          <div class="fc-back-text" id="fc-back">—</div>
+          <div class="fc-hint">Tap to flip back</div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 16px;">
+      <button class="btn btn-outline" onclick="prevCard()">← Previous</button>
+      <button class="btn btn-primary" onclick="nextCard()">Next Question →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 5: IDEA SANDBOX ==================== -->
+<div class="page" id="page-sandbox">
+  <div class="page-header">
+    <div class="page-title">🧠 Idea Sandbox</div>
+    <div class="page-subtitle">Your creative workspace. Drop ideas, brainstorm collections, explore what ButterBawd could become — nothing is too wild here.</div>
+  </div>
+
+  <div class="sandbox-grid">
+    <div>
+      <div class="idea-input-area">
+        <div class="idea-input-header">
+          <span>💡 Idea Capture Board</span>
+          <div class="idea-tags-row">
+            <div class="idea-tag-btn active" onclick="selectIdeaTag(this, 'all')">All</div>
+            <div class="idea-tag-btn" onclick="selectIdeaTag(this, 'collection')">Collection</div>
+            <div class="idea-tag-btn" onclick="selectIdeaTag(this, 'ops')">Operations</div>
+            <div class="idea-tag-btn" onclick="selectIdeaTag(this, 'marketing')">Marketing</div>
+            <div class="idea-tag-btn" onclick="selectIdeaTag(this, 'hiring')">Hiring</div>
+          </div>
+        </div>
+        <div style="padding: 16px; display: flex; gap: 10px;">
+          <input type="text" id="idea-input" placeholder="Type your idea and press Enter..." style="flex: 1;" onkeydown="if(event.key==='Enter') addIdea()">
+          <select id="idea-cat" style="width: 130px;">
+            <option value="collection">Collection</option>
+            <option value="ops">Operations</option>
+            <option value="marketing">Marketing</option>
+            <option value="hiring">Hiring</option>
+          </select>
+          <button class="btn btn-primary" onclick="addIdea()">Add</button>
+        </div>
+        <div class="idea-list" id="idea-list">
+          <!-- Ideas added by JS -->
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="collection-gen" style="margin-bottom: 20px;">
+        <div class="section-title" style="font-size: 18px; margin-bottom: 16px;">🎨 New Collection Builder</div>
+        <div class="field-group">
+          <label>Collection Name</label>
+          <input type="text" id="coll-name" placeholder="E.g. Midnight Melt, Sundrop Series...">
+        </div>
+        <div class="field-group">
+          <label>Fabric Tier</label>
+          <select id="coll-fabric">
+            <option>SkinMelt™ (High Compression)</option>
+            <option>RibCloud™ (Medium Compression)</option>
+            <option>SoftServe™ (Low Compression)</option>
+            <option>Mixed Tiers</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>Colorway Palette</label>
+          <div class="color-swatches">
+            <div class="swatch" style="background: #C4A882;" title="Spiced Butter" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #D4B5A0;" title="Sugar Blush" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #8B7355;" title="Cocoa Whip" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #E8D5C4;" title="Buttered Pop" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #2C2C2C;" title="Midnight" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #8B9E7A;" title="Sage Mist" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #C4D5E8;" title="Powder Blue" onclick="toggleSwatch(this)"></div>
+            <div class="swatch" style="background: #E8C4C4;" title="Blush Rose" onclick="toggleSwatch(this)"></div>
+          </div>
+        </div>
+        <div class="field-group">
+          <label>Collection Theme / Occasion</label>
+          <input type="text" id="coll-theme" placeholder="E.g. Pilates-to-brunch, Monsoon Edit...">
+        </div>
+        <button class="btn btn-primary" style="width: 100%;" onclick="saveCollection()">Save Collection Idea</button>
+      </div>
+
+      <div class="section-title" style="font-size: 18px; margin-bottom: 12px;">🚀 Brand Expansion Ideas</div>
+      <div class="expansion-cards">
+        <div class="exp-card">
+          <div class="exp-icon">🤰</div>
+          <div>
+            <div class="exp-title">Maternity Sculpt Line</div>
+            <div class="exp-desc">Compression wear for pregnant & postpartum bodies — huge gap in Indian market</div>
+          </div>
+          <span class="exp-difficulty diff-medium">Medium</span>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🏃‍♀️</div>
+          <div>
+            <div class="exp-title">Active Bottoms</div>
+            <div class="exp-desc">SkinMelt™ leggings — natural extension of existing top category</div>
+          </div>
+          <span class="exp-difficulty diff-easy">Easy</span>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🌙</div>
+          <div>
+            <div class="exp-title">Loungewear Edit</div>
+            <div class="exp-desc">SoftServe™ sets — cozy, everyday wear with brand aesthetic</div>
+          </div>
+          <span class="exp-difficulty diff-easy">Easy</span>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">👗</div>
+          <div>
+            <div class="exp-title">Wedding Edit</div>
+            <div class="exp-desc">Sculpting layers + innerwear for bridal season — high-margin, high-intent</div>
+          </div>
+          <span class="exp-difficulty diff-medium">Medium</span>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🌍</div>
+          <div>
+            <div class="exp-title">International Expansion</div>
+            <div class="exp-desc">SE Asian markets (Singapore, Malaysia) — same climate, same need</div>
+          </div>
+          <span class="exp-difficulty diff-hard">Later</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 6: STRATEGY MAP ==================== -->
+<div class="page" id="page-strategy">
+  <div class="page-header">
+    <div class="page-title">🗺️ Strategy Map</div>
+    <div class="page-subtitle">Your 18-month roadmap, brand architecture, and priority framework — visualized.</div>
+  </div>
+
+  <div style="display: flex; gap: 14px; margin-bottom: 28px; border-bottom: 2px solid var(--butter-pale); padding-bottom: 0;">
+    <div class="pitch-tab active" onclick="showStratTab('timeline')">📅 Roadmap</div>
+    <div class="pitch-tab" onclick="showStratTab('mindmap')">🧠 Mind Map</div>
+    <div class="pitch-tab" onclick="showStratTab('matrix')">⚡ Priority Matrix</div>
+    <div class="pitch-tab" onclick="showStratTab('hiring')">👥 Hiring Plan</div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="pitch-section active" id="st-timeline">
+    <div class="section-title">📅 ButterBawd 18-Month Roadmap</div>
+    <div class="info-box" style="margin-bottom: 24px;">
+      This is a suggested roadmap based on typical Indian D2C brand milestones. Customize it to match your actual plans and funding timeline.
+    </div>
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-item">
+        <div class="timeline-date"><div class="tdate">Now</div><div class="tphase">Foundation</div></div>
+        <div class="timeline-dot completed"></div>
+        <div class="timeline-content">
+          <div class="tc-title">✅ Brand Established</div>
+          <ul class="tc-items">
+            <li>ButterBawd™ launched on Shopify</li>
+            <li>3 proprietary fabrics (SoftServe, RibCloud, SkinMelt) live</li>
+            <li>8,300+ organic Instagram followers</li>
+            <li>Elle India + The New Indian Express features</li>
+            <li>Heartline Melt Top viral moment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date"><div class="tdate">Month 1–3</div><div class="tphase">Pitch Ready</div></div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="tc-title">🎯 Investor Pitch Phase</div>
+          <ul class="tc-items">
+            <li>Finalize pitch deck + financial model</li>
+            <li>Build advisory board (1–2 advisors in fashion/D2C)</li>
+            <li>Approach 10–15 angel investors + D2C VCs</li>
+            <li>Prepare due diligence documents</li>
+            <li>Launch Summer/Monsoon collection to boost traction data</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date"><div class="tdate">Month 4–6</div><div class="tphase">Seed Closed</div></div>
+        <div class="timeline-dot upcoming"></div>
+        <div class="timeline-content">
+          <div class="tc-title">💰 Close Seed Round</div>
+          <ul class="tc-items">
+            <li>Close ₹[X] Cr seed round</li>
+            <li>Scale inventory — 2 new colorway drops</li>
+            <li>Onboard Nykaa Fashion partnership</li>
+            <li>Hire: Operations Head + Social Media Manager</li>
+            <li>10K Instagram followers milestone</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date"><div class="tdate">Month 7–12</div><div class="tphase">Scale</div></div>
+        <div class="timeline-dot upcoming"></div>
+        <div class="timeline-content">
+          <div class="tc-title">🚀 Distribution & Community Scale</div>
+          <ul class="tc-items">
+            <li>Launch on quick commerce (Blinkit pilot)</li>
+            <li>Quarterly collection drops (Fall + Holiday Edit)</li>
+            <li>Influencer program: 10–15 micro-influencers</li>
+            <li>Brand pop-up at 2 lifestyle events</li>
+            <li>CRM + loyalty program launch</li>
+            <li>₹[X] Cr ARR milestone</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date"><div class="tdate">Month 13–18</div><div class="tphase">Omnichannel</div></div>
+        <div class="timeline-dot upcoming"></div>
+        <div class="timeline-content">
+          <div class="tc-title">🌟 Omnichannel & Series A Prep</div>
+          <ul class="tc-items">
+            <li>Standalone ButterBawd pop-up studio (Delhi/Mumbai)</li>
+            <li>Expand: maternity or bottoms category</li>
+            <li>SE Asia market research</li>
+            <li>Series A pitch preparation</li>
+            <li>20K+ Instagram followers, 10%+ repeat purchase rate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MIND MAP -->
+  <div class="pitch-section" id="st-mindmap">
+    <div class="section-title">🧠 ButterBawd Brand Architecture</div>
+    <div class="mindmap-container">
+      <div class="mindmap">
+        <div class="mm-center">
+          <div class="mm-hub">🧈 ButterBawd™</div>
+          <div class="mm-branches">
+            <div class="mm-branch">
+              <div class="mm-b-title">🧵 Products</div>
+              <ul class="mm-b-items">
+                <li>Heartline Melt Top</li>
+                <li>Butter Melt Zip Top</li>
+                <li>Square Neck Bodysuit</li>
+                <li>[New SKUs TBD]</li>
+              </ul>
+            </div>
+            <div class="mm-branch">
+              <div class="mm-b-title">🔬 Fabrics</div>
+              <ul class="mm-b-items">
+                <li>SoftServe™ (Low)</li>
+                <li>RibCloud™ (Medium)</li>
+                <li>SkinMelt™ (High)</li>
+                <li>[Future: Eco line?]</li>
+              </ul>
+            </div>
+            <div class="mm-branch">
+              <div class="mm-b-title">🎯 Customer</div>
+              <ul class="mm-b-items">
+                <li>22–38, urban India</li>
+                <li>Pilates-first lifestyle</li>
+                <li>Instagram-native</li>
+                <li>Body-confident</li>
+              </ul>
+            </div>
+            <div class="mm-branch">
+              <div class="mm-b-title">📦 Channels</div>
+              <ul class="mm-b-items">
+                <li>D2C (Shopify)</li>
+                <li>Nykaa Fashion</li>
+                <li>Quick Commerce</li>
+                <li>Pop-ups / Events</li>
+              </ul>
+            </div>
+            <div class="mm-branch">
+              <div class="mm-b-title">💰 Revenue</div>
+              <ul class="mm-b-items">
+                <li>₹1,799 avg price</li>
+                <li>Limited drops</li>
+                <li>Seasonal collections</li>
+                <li>[Subscription TBD]</li>
+              </ul>
+            </div>
+            <div class="mm-branch">
+              <div class="mm-b-title">🏗️ Infrastructure</div>
+              <ul class="mm-b-items">
+                <li>Own factory</li>
+                <li>Fabric IP (3 materials)</li>
+                <li>Gokwik checkout</li>
+                <li>[CRM + Loyalty]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITY MATRIX -->
+  <div class="pitch-section" id="st-matrix">
+    <div class="section-title">⚡ Priority Matrix — Do Now vs. Plan vs. Defer</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      <strong>How to use this:</strong> Map your next 6-month actions into these four quadrants. High importance + urgent = Do Now. High importance but not urgent = Plan carefully. Low importance + urgent = Delegate. Everything else = Defer.
+    </div>
+    <div class="matrix-grid">
+      <div class="matrix-cell cell-do-now">
+        <div class="mc-label">🟢 DO NOW — High Impact, Urgent</div>
+        <div class="mc-items">
+          <div class="mc-item">Finalize pitch deck</div>
+          <div class="mc-item">Calculate unit economics</div>
+          <div class="mc-item">Approach first 5 investors</div>
+          <div class="mc-item">Prepare due diligence docs</div>
+          <div class="mc-item">Launch next collection drop</div>
+        </div>
+      </div>
+      <div class="matrix-cell cell-plan">
+        <div class="mc-label">🟡 PLAN — High Impact, Not Urgent</div>
+        <div class="mc-items">
+          <div class="mc-item">Advisory board recruitment</div>
+          <div class="mc-item">Nykaa Fashion onboarding</div>
+          <div class="mc-item">Hire Operations Head</div>
+          <div class="mc-item">Build loyalty program</div>
+          <div class="mc-item">Series A preparation</div>
+        </div>
+      </div>
+      <div class="matrix-cell cell-delegate">
+        <div class="mc-label">🔵 DELEGATE — Urgent, Lower Impact</div>
+        <div class="mc-items">
+          <div class="mc-item">Instagram scheduling</div>
+          <div class="mc-item">Customer service DMs</div>
+          <div class="mc-item">Packing/logistics ops</div>
+          <div class="mc-item">Website content updates</div>
+        </div>
+      </div>
+      <div class="matrix-cell cell-defer">
+        <div class="mc-label">🔴 DEFER — Low Impact, Not Urgent</div>
+        <div class="mc-items">
+          <div class="mc-item">International expansion</div>
+          <div class="mc-item">Men's line exploration</div>
+          <div class="mc-item">Subscription model</div>
+          <div class="mc-item">Physical retail store</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIRING PLAN -->
+  <div class="pitch-section" id="st-hiring">
+    <div class="section-title">👥 Hiring Roadmap</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      <strong>For investors:</strong> A hiring plan shows you've thought clearly about what gaps exist and how you'll spend their money. For yourself: knowing when to hire what role is one of the most important decisions a founder makes.
+    </div>
+    <div class="card-grid card-grid-2" style="gap: 14px;">
+      <div class="card">
+        <div class="tag tag-dark" style="margin-bottom: 12px;">Month 1–3 (Pre-funding)</div>
+        <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Intern / Part-time</div>
+        <ul style="font-size: 13px; color: var(--butter-walnut); line-height: 2; list-style: none;">
+          <li>📱 Social Media Assistant — content scheduling + community management</li>
+          <li>🎨 Freelance Photographer — product shoots, lookbooks</li>
+          <li>📦 Logistics/Fulfilment support (part-time)</li>
+        </ul>
+        <div class="field-suggestion">Budget: ₹15,000–25,000/month range</div>
+      </div>
+      <div class="card">
+        <div class="tag tag-primary" style="margin-bottom: 12px;">Month 4–6 (Post-funding)</div>
+        <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">First Full-Time Hires</div>
+        <ul style="font-size: 13px; color: var(--butter-walnut); line-height: 2; list-style: none;">
+          <li>🏭 Operations Manager — supply chain, inventory, logistics</li>
+          <li>📣 Head of Growth / Marketing — performance + brand marketing</li>
+          <li>🎨 In-house Designer — collection development support</li>
+        </ul>
+        <div class="field-suggestion">Budget: ₹1.5–2.5L/month combined</div>
+      </div>
+      <div class="card">
+        <div class="tag tag-gold" style="margin-bottom: 12px;">Month 7–12</div>
+        <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Growth Team</div>
+        <ul style="font-size: 13px; color: var(--butter-walnut); line-height: 2; list-style: none;">
+          <li>📊 Finance/Analytics Lead — unit economics, P&L tracking</li>
+          <li>🛍️ Marketplace Manager — Nykaa, quick commerce</li>
+          <li>🤝 Influencer Relations Manager</li>
+        </ul>
+        <div class="field-suggestion">Budget: ₹2–3.5L/month combined</div>
+      </div>
+      <div class="card">
+        <div class="tag tag-rose" style="margin-bottom: 12px;">Month 13–18</div>
+        <div class="section-title" style="font-size: 16px; margin-bottom: 10px;">Scale Team</div>
+        <ul style="font-size: 13px; color: var(--butter-walnut); line-height: 2; list-style: none;">
+          <li>🌍 Category Manager (for expansion lines)</li>
+          <li>💻 Tech/CRM Lead (loyalty + personalization)</li>
+          <li>🏪 Retail/Pop-up Experience Manager</li>
+        </ul>
+        <div class="field-suggestion">Budget: ₹3–5L/month combined</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 7: INVESTOR ACADEMY ==================== -->
+<div class="page" id="page-academy">
+  <div class="page-header">
+    <div class="page-title">📚 Investor Academy</div>
+    <div class="page-subtitle">Every term demystified. Every investor type explained. A first-timer's complete guide to navigating fundraising confidently.</div>
+  </div>
+
+  <div class="pitch-tabs">
+    <div class="pitch-tab active" onclick="showAcadTab('glossary')">📖 Glossary</div>
+    <div class="pitch-tab" onclick="showAcadTab('types')">👤 Investor Types</div>
+    <div class="pitch-tab" onclick="showAcadTab('funds')">🏦 India D2C Funds</div>
+    <div class="pitch-tab" onclick="showAcadTab('checklist')">✅ Due Diligence</div>
+    <div class="pitch-tab" onclick="showAcadTab('mistakes')">🚩 Avoid These</div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="pitch-section active" id="ac-glossary">
+    <div class="section-title">📖 The Fundraising Glossary — Plain English Edition</div>
+    <div class="glossary-grid" id="glossary-grid">
+      <!-- Inserted by JS -->
+    </div>
+  </div>
+
+  <!-- INVESTOR TYPES -->
+  <div class="pitch-section" id="ac-types">
+    <div class="section-title">👤 Understanding Investor Types</div>
+    <div class="investor-type-cards">
+      <div class="inv-type-card">
+        <div class="inv-type-header" style="background: var(--butter-sugar);">
+          <div class="inv-type-icon">👼</div>
+          <div class="inv-type-name">Angel Investor</div>
+          <div class="inv-type-stage">Pre-Seed → Seed</div>
+        </div>
+        <div class="inv-type-body">
+          <p>Individual investors (often successful founders or executives) who invest their own money at very early stages. They're often faster to decide and take more personal bets on founders.</p>
+          <ul>
+            <li><strong>Ticket size:</strong> ₹5L – ₹50L typically</li>
+            <li><strong>What they value:</strong> The founder's conviction + story</li>
+            <li><strong>For ButterBawd:</strong> Ideal first money — fashion-industry angels, startup veterans</li>
+            <li><strong>Where to find them:</strong> LetsVenture, AngelList India, LinkedIn, founder communities</li>
+          </ul>
+        </div>
+      </div>
+      <div class="inv-type-card">
+        <div class="inv-type-header" style="background: var(--butter-linen);">
+          <div class="inv-type-icon">🌱</div>
+          <div class="inv-type-name">Seed VC Fund</div>
+          <div class="inv-type-stage">Seed → Series A Bridge</div>
+        </div>
+        <div class="inv-type-body">
+          <p>Specialized funds that invest at the seed stage. They have more process than angels but back earlier-stage companies. They'll do light due diligence and provide more than just money — networks, hiring help, brand credibility.</p>
+          <ul>
+            <li><strong>Ticket size:</strong> ₹50L – ₹3Cr</li>
+            <li><strong>What they value:</strong> Traction signals + scalable model</li>
+            <li><strong>For ButterBawd:</strong> Indian D2C focused funds (Fireside, RPSG, Titan Capital)</li>
+            <li><strong>Process:</strong> Term sheet → due diligence → investment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="inv-type-card">
+        <div class="inv-type-header" style="background: #EDF2E9;">
+          <div class="inv-type-icon">🏛️</div>
+          <div class="inv-type-name">Strategic Investor</div>
+          <div class="inv-type-stage">Any Stage</div>
+        </div>
+        <div class="inv-type-body">
+          <p>Corporate investors (like conglomerates, retail companies, or fabric manufacturers) who invest because your success benefits their business. Can be incredibly valuable beyond just money.</p>
+          <ul>
+            <li><strong>Examples:</strong> Aditya Birla Fashion, Reliance Retail ventures, fabric suppliers</li>
+            <li><strong>What they bring:</strong> Distribution, supply chain, retail access</li>
+            <li><strong>For ButterBawd:</strong> A fabric conglomerate investing could unlock premium raw materials + retail shelf space</li>
+            <li><strong>⚠️ Watch:</strong> Can come with conditions that limit flexibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D2C FUNDS -->
+  <div class="pitch-section" id="ac-funds">
+    <div class="section-title">🏦 Indian D2C Investor Directory</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      Research each fund before reaching out. Understand their portfolio, thesis, and sweet spot. A warm introduction (through a mutual contact) is 10x more effective than a cold email.
+    </div>
+    <div class="investor-fund-cards" id="fund-cards">
+      <!-- Inserted by JS -->
+    </div>
+  </div>
+
+  <!-- DUE DILIGENCE CHECKLIST -->
+  <div class="pitch-section" id="ac-checklist">
+    <div class="section-title">✅ Due Diligence Checklist</div>
+    <div class="info-box" style="margin-bottom: 20px;">
+      <strong>What is due diligence?</strong> After an investor says "we're interested," they'll ask to see all your documents to verify what you've told them. Being prepared with these documents signals professionalism and speeds up the process. Click items as you prepare them.
+    </div>
+    <ul class="checklist" id="dd-checklist">
+      <!-- Inserted by JS -->
+    </ul>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div class="pitch-section" id="ac-mistakes">
+    <div class="section-title">🚩 Common Mistakes First-Time Founders Make (And How to Avoid Them)</div>
+    <div id="mistakes-list">
+      <!-- Inserted by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE 8: MARKET INTELLIGENCE ==================== -->
+<div class="page" id="page-market">
+  <div class="page-header">
+    <div class="page-title">📈 Market Intelligence</div>
+    <div class="page-subtitle">The data behind ButterBawd's opportunity — market size, trends, and competitor landscape.</div>
+  </div>
+
+  <div class="section-title">📊 Indian Shapewear & Athleisure Market — Key Numbers</div>
+  <div class="market-stat-grid">
+    <div class="market-stat">
+      <div class="ms-value">$700<span class="ms-unit">M+</span></div>
+      <div class="ms-label">Total Addressable Market (2025)</div>
+      <div class="ms-context">Indian shapewear + athleisure combined</div>
+    </div>
+    <div class="market-stat">
+      <div class="ms-value">8–10<span class="ms-unit">%</span></div>
+      <div class="ms-label">CAGR (Growth Rate)</div>
+      <div class="ms-context">Projected through early 2030s</div>
+    </div>
+    <div class="market-stat">
+      <div class="ms-value">460<span class="ms-unit">M+</span></div>
+      <div class="ms-label">Indian Women Online by 2026</div>
+      <div class="ms-context">Your addressable digital audience</div>
+    </div>
+    <div class="market-stat">
+      <div class="ms-value">$1.2<span class="ms-unit">B</span></div>
+      <div class="ms-label">Projected Market Size by 2032</div>
+      <div class="ms-context">From ~$700M today</div>
+    </div>
+    <div class="market-stat">
+      <div class="ms-value">51<span class="ms-unit">%</span></div>
+      <div class="ms-label">BlissClub Revenue Growth FY25</div>
+      <div class="ms-context">Closest D2C comparable — proves demand</div>
+    </div>
+    <div class="market-stat">
+      <div class="ms-value">0</div>
+      <div class="ms-label">Brands with Climate-Engineered Compression</div>
+      <div class="ms-context">The white space ButterBawd owns</div>
+    </div>
+  </div>
+
+  <div class="section-title">🌊 Key Trends Working in ButterBawd's Favour</div>
+  <div class="trend-card">
+    <div class="trend-icon">💪</div>
+    <div>
+      <div class="trend-title">Compression → Confidence Shift</div>
+      <div class="trend-desc">Shapewear is no longer about "correction" — it's about confidence enhancement. The language of the category is changing from restrictive/corrective to empowering/confidence-boosting. This is exactly ButterBawd's positioning.</div>
+      <div class="trend-bb-angle">→ ButterBawd angle: "Made for real bodies ✨" — confidence-first positioning already live on Instagram</div>
+    </div>
+  </div>
+  <div class="trend-card">
+    <div class="trend-icon">🧘</div>
+    <div>
+      <div class="trend-title">Athleisure Goes Everyday</div>
+      <div class="trend-desc">The line between gym wear and casual wear has dissolved. Women want one piece that works for Pilates at 8am, WFH at noon, and brunch at 2pm. Versatility is the new luxury.</div>
+      <div class="trend-bb-angle">→ ButterBawd angle: Double-lined, bra-free bodysuits that do exactly this — from workout to Instagram-ready</div>
+    </div>
+  </div>
+  <div class="trend-card">
+    <div class="trend-icon">🇮🇳</div>
+    <div>
+      <div class="trend-title">Vocal for Local — D2C Brand Love</div>
+      <div class="trend-desc">Post-pandemic Indian consumers increasingly prefer to support homegrown brands, especially those that understand the local context. This trend has driven D2C brands like BlissClub, Snitch, and Mensa Brands to enormous scale.</div>
+      <div class="trend-bb-angle">→ ButterBawd angle: "Proudly Made in India" with own manufacturing — the most authentic form of this narrative</div>
+    </div>
+  </div>
+  <div class="trend-card">
+    <div class="trend-icon">📱</div>
+    <div>
+      <div class="trend-title">Tier II & III City Expansion</div>
+      <div class="trend-desc">Increased smartphone penetration + improved logistics mean that premium D2C brands now reach customers far beyond metros. This dramatically expands the addressable market without the cost of physical retail.</div>
+      <div class="trend-bb-angle">→ ButterBawd angle: Shopify D2C model is inherently national — no infrastructure needed to reach Jaipur, Kochi, or Coimbatore</div>
+    </div>
+  </div>
+  <div class="trend-card">
+    <div class="trend-icon">🔬</div>
+    <div>
+      <div class="trend-title">Fabric Innovation as Moat</div>
+      <div class="trend-desc">The most defensible D2C brands own their supply chain and product IP. Fabric innovation (sustainable materials, performance blends, smart textiles) is increasingly what separates premium from commodity.</div>
+      <div class="trend-bb-angle">→ ButterBawd angle: The ONLY brand with a 3-tier proprietary compression fabric system engineered in-house for India</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top: 32px;">⚔️ Competitor Deep Dive</div>
+  <div class="comp-radar">
+    <div class="comp-card butterbawd-card">
+      <div class="comp-name">🧈 ButterBawd™</div>
+      <div class="comp-type">Your Brand — The Benchmark</div>
+      <div class="comp-attr"><span class="comp-attr-name">India-Made + Own Factory</span><span class="comp-attr-stars">★★★★★</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Proprietary Fabric IP</span><span class="comp-attr-stars">★★★★★</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Breathable Compression</span><span class="comp-attr-stars">★★★★★</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Brand Aesthetic</span><span class="comp-attr-stars">★★★★☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Price Accessibility</span><span class="comp-attr-stars">★★★★☆</span></div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">BlissClub</div>
+      <div class="comp-type">Closest D2C Competitor · Funded · Scaling</div>
+      <div class="comp-attr"><span class="comp-attr-name">India-Made + Own Factory</span><span class="comp-attr-stars">★★★☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Proprietary Fabric IP</span><span class="comp-attr-stars">★★☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Breathable Compression</span><span class="comp-attr-stars">★★★☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Brand Aesthetic</span><span class="comp-attr-stars">★★★★☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Price Accessibility</span><span class="comp-attr-stars">★★★☆☆</span></div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">SKIMS (US)</div>
+      <div class="comp-type">Global Benchmark · Not India-specific</div>
+      <div class="comp-attr"><span class="comp-attr-name">India-Made + Own Factory</span><span class="comp-attr-stars">★☆☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Proprietary Fabric IP</span><span class="comp-attr-stars">★★★★☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Breathable Compression</span><span class="comp-attr-stars">★★☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Brand Aesthetic</span><span class="comp-attr-stars">★★★★★</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Price Accessibility</span><span class="comp-attr-stars">★★☆☆☆</span></div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-name">Zivame</div>
+      <div class="comp-type">Intimate Wear · Mass Market · No Aesthetics</div>
+      <div class="comp-attr"><span class="comp-attr-name">India-Made + Own Factory</span><span class="comp-attr-stars">★★★☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Proprietary Fabric IP</span><span class="comp-attr-stars">★☆☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Breathable Compression</span><span class="comp-attr-stars">★★☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Brand Aesthetic</span><span class="comp-attr-stars">★★☆☆☆</span></div>
+      <div class="comp-attr"><span class="comp-attr-name">Price Accessibility</span><span class="comp-attr-stars">★★★★★</span></div>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + pageId).classList.add('active');
+  const navItems = document.querySelectorAll('.nav-item');
+  const pageMap = { home:0, brand:1, deck:2, script:3, sandbox:4, strategy:5, academy:6, market:7 };
+  if (navItems[pageMap[pageId]]) navItems[pageMap[pageId]].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   DECK BUILDER
+   ============================================================ */
+function showSlide(n) {
+  document.querySelectorAll('.slide-builder').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.slide-pill').forEach((p,i) => {
+    p.classList.toggle('active', i === n-1);
+  });
+  document.getElementById('slide-' + n).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   PITCH TABS
+   ============================================================ */
+function showPitchTab(tab) {
+  document.querySelectorAll('#page-script .pitch-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#page-script .pitch-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('pt-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function showStratTab(tab) {
+  document.querySelectorAll('#page-strategy .pitch-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#page-strategy .pitch-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('st-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function showAcadTab(tab) {
+  document.querySelectorAll('#page-academy .pitch-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#page-academy .pitch-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('ac-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+/* ============================================================
+   Q&A ACCORDION
+   ============================================================ */
+const qaData = [
+  { cat: "🏆 The Hardest Questions", q: "Why are YOU the right person to build this?", a: "Answer with specificity, not generality. Talk about your lived experience with the problem (you personally struggled to find this product), any relevant skills or knowledge you bring (manufacturing connections, fashion background, design sensibility), and what obsession drives you. 'I've been building ButterBawd since 2025 — I know every seam, every fabric, and every customer DM.' Conviction + authenticity wins.", tip: "Practice this until it feels like breathing, not reciting." },
+  { cat: "🏆 The Hardest Questions", q: "What happens if BlissClub or Nykaa launches a competing product?", a: "This is a moat question. Your answer: Our moat is the proprietary fabric IP (SoftServe, RibCloud, SkinMelt) developed in our own facility — these took time to engineer and can't be bought off the shelf. Our community trusts us for a specific aesthetic and quality that's very hard to replicate quickly. Plus, our climate-specific engineering is a genuine product innovation, not just a positioning statement.", tip: "Never say 'we have no competition' — it destroys credibility instantly." },
+  { cat: "💰 Finance Questions", q: "What is your current revenue? Monthly orders? Contribution margin?", a: "Have your real numbers ready — no fudging. If revenue is small, contextualize it: 'We launched X months ago and have done ₹Y. Our focus has been on product-market fit over scale — the viral organic moment with the Heartline Top told us we have something real.' Then pivot to unit economics: what your margins look like, and why they improve at scale with your own manufacturing.", tip: "If you don't know your contribution margin, calculate it before every pitch." },
+  { cat: "💰 Finance Questions", q: "What is your LTV:CAC ratio?", a: "LTV = Lifetime Value of a customer (total revenue over all purchases). CAC = Customer Acquisition Cost (how much you spend to get one customer). A healthy ratio is 3:1 or higher. If you don't have this calculated yet: 'We're currently acquiring customers organically through Instagram and PR — our paid CAC is near-zero. As we add paid channels, we target a 3:1 LTV:CAC.' Honest + directional.", tip: "Calculate LTV:CAC before your pitch. Investors WILL ask." },
+  { cat: "💰 Finance Questions", q: "What is your return rate? How do you handle RTOs?", a: "RTOs (Return to Origin — packages that come back undelivered) are a major issue in Indian D2C. Have your numbers. Bodysuits are final sale (hygiene policy) — this naturally lowers returns. Exchange policy has a ₹150 logistics fee — designed to be fair while protecting margins. 'Our RTO rate is X%. Our bodysuit final-sale policy is both a hygiene standard and a margin protection measure.'", tip: "High RTO rates are a major red flag — if yours is high, have a plan to reduce it." },
+  { cat: "📈 Growth Questions", q: "How will you use the funding?", a: "Be specific. Don't say 'for growth.' Say: '40% for inventory and production scaling — two new colorway drops. 25% for brand marketing — influencer program and editorial. 20% for team — Operations Head and Marketing Manager. 10% for technology. 5% working capital.' Specificity signals discipline and that you've thought through the deployment carefully.", tip: "The more specific your use of funds, the more confident the investor feels." },
+  { cat: "📈 Growth Questions", q: "What's your plan for customer retention?", a: "Retention is where the business is built. Answer: our brand identity is strong enough that customers come back — the colorways, the aesthetic, the quality drive loyalty. We're building a CRM + loyalty program with funding. We'll launch quarterly limited-edition drops to drive repeat purchases with urgency. And our Instagram community is our retention engine — warm leads who follow us buy again.", tip: "Cohort data (what % of Month 1 customers buy again in Month 3) is gold. Collect it now." },
+  { cat: "🎯 Strategy Questions", q: "What is your path to profitability?", a: "Show the journey, not just the destination. 'Currently we're investing in brand building and traction. At scale X orders/month, our contribution margin hits Y%, and we reach EBITDA breakeven at Z revenue. Our in-house manufacturing means COGS improve with volume — this is a real margin driver that third-party brands don't have.'", tip: "Don't say 'we'll be profitable in Year 3' without showing the math." },
+  { cat: "🎯 Strategy Questions", q: "Why D2C and not retail/marketplace first?", a: "D2C gives us data, margin, and brand control. We learn what our customer loves — size, color, fit — directly, not through a marketplace filter. Our Shopify + Gokwik infrastructure is built for D2C. We'll add Nykaa as a channel, not a replacement — it brings discovery, while D2C provides depth.", tip: "Investors know marketplace margins are terrible. Show you understand the economics." },
+  { cat: "👥 Team Questions", q: "What are the gaps in your team and how will you fill them?", a: "Be honest and specific. 'As a solo founder, I've built everything from product to community. The gaps I'm filling with funding: Operations (supply chain, inventory scaling) and Marketing (performance + brand). I have [X advisor/mentor] supporting on [specific area].' Knowing what you don't know is a sign of maturity, not weakness.", tip: "Investors fund founders who are self-aware, not just self-confident." },
+];
+
+function buildQA() {
+  const list = document.getElementById('qa-list');
+  if (!list) return;
+  let lastCat = '';
+  qaData.forEach((item, i) => {
+    if (item.cat !== lastCat) {
+      const header = document.createElement('div');
+      header.style.cssText = 'font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--butter-gold);margin:20px 0 10px;';
+      header.textContent = item.cat;
+      list.appendChild(header);
+      lastCat = item.cat;
+    }
+    const card = document.createElement('div');
+    card.className = 'qa-card';
+    card.innerHTML = `
+      <div class="qa-question" onclick="toggleQA(this)">
+        <div class="qa-q-text">Q: ${item.q}</div>
+        <div class="qa-toggle">+</div>
+      </div>
+      <div class="qa-answer">
+        <p>${item.a}</p>
+        <div class="answer-tip">💡 Delivery tip: ${item.tip}</div>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function toggleQA(el) {
+  const ans = el.nextElementSibling;
+  const toggle = el.querySelector('.qa-toggle');
+  ans.classList.toggle('open');
+  toggle.textContent = ans.classList.contains('open') ? '−' : '+';
+}
+
+/* ============================================================
+   FLASHCARDS
+   ============================================================ */
+const cards = [
+  { cat: "Finance", q: "What is your current burn rate, and how much runway do you have?", a: "Burn rate = how much money you spend per month. Runway = how many months until you run out of money. Say your actual burn, and how funding extends runway to 18 months. Investors want to see discipline." },
+  { cat: "Finance", q: "Walk me through your unit economics.", a: "Cover: Selling price (₹1,799) → COGS → Gross margin → Subtract: Shipping + Payment gateway + Returns + Marketing = Contribution margin. Know your actual numbers before pitching." },
+  { cat: "Market", q: "Who is your target customer, and why do they choose you over alternatives?", a: "Be specific: 'Our customer is a 25–35 year old urban Indian woman who wants to look sculpted but refuses to sacrifice comfort in Indian heat. She chooses us because no other brand has engineered breathable compression specifically for her climate and aesthetic.'" },
+  { cat: "Team", q: "Have you done this before? What's your relevant experience?", a: "Lean into your unique combination of insights. Your personal frustration with the problem IS experience. Your obsession with the category IS relevant. Supplement with any technical knowledge, manufacturing connections, or community relationships you've built." },
+  { cat: "Strategy", q: "What is your 3-year vision for ButterBawd?", a: "Be ambitious but grounded. 'ButterBawd is the first brand Indian women reach for — the way American women reach for Spanx. By Year 3, we are omnichannel across D2C, Nykaa, and quick commerce, with 3+ fabric product lines and a community of 100K+ loyal customers.'" },
+  { cat: "Growth", q: "What's your customer acquisition strategy beyond Instagram?", a: "Map your channels: Editorial PR (Elle India), micro-influencer program (planned with funding), Nykaa Fashion discovery, quick commerce, and community-driven referral. Show you're not 100% dependent on paid Instagram ads — that kills margins." },
+  { cat: "Investment", q: "What is your pre-money valuation and how did you arrive at it?", a: "Research comparables: What have similar Indian D2C brands raised at at seed stage? Reference BlissClub, Snitch, comparable rounds. 'Based on comparable seed-stage D2C rounds and our traction, we're valuing at ₹X Cr pre-money, offering Y% equity.' Consult a CA." },
+  { cat: "Product", q: "What's your best-selling product and why?", a: "Talk about the Heartline Melt Top — it went viral organically. Explain WHY it resonated: the sweetheart neckline, SkinMelt fabric, bra-free confidence design. This proves product-market fit: when a product earns attention without paid promotion, you've built something real." },
+];
+
+let currentCard = 0;
+let isFlipped = false;
+
+function updateCard() {
+  const card = cards[currentCard];
+  document.getElementById('fc-category').textContent = card.cat;
+  document.getElementById('fc-front').textContent = card.q;
+  document.getElementById('fc-back').textContent = card.a;
+  isFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', isFlipped);
+}
+
+function nextCard() {
+  currentCard = (currentCard + 1) % cards.length;
+  updateCard();
+}
+
+function prevCard() {
+  currentCard = (currentCard - 1 + cards.length) % cards.length;
+  updateCard();
+}
+
+/* ============================================================
+   IDEA SANDBOX
+   ============================================================ */
+let ideas = JSON.parse(localStorage.getItem('bb_ideas') || '[]');
+let filterTag = 'all';
+
+const catColors = { collection: '#7F6F58', ops: '#8B9E7A', marketing: '#D4917B', hiring: '#6B7FC4' };
+const catBgs = { collection: 'var(--butter-primary)', ops: 'var(--accent-sage)', marketing: 'var(--accent-rose)', hiring: '#6B7FC4' };
+
+function addIdea() {
+  const input = document.getElementById('idea-input');
+  const cat = document.getElementById('idea-cat').value;
+  const text = input.value.trim();
+  if (!text) return;
+  ideas.push({ text, cat, id: Date.now() });
+  localStorage.setItem('bb_ideas', JSON.stringify(ideas));
+  input.value = '';
+  renderIdeas();
+}
+
+function deleteIdea(id) {
+  ideas = ideas.filter(i => i.id !== id);
+  localStorage.setItem('bb_ideas', JSON.stringify(ideas));
+  renderIdeas();
+}
+
+function renderIdeas() {
+  const list = document.getElementById('idea-list');
+  if (!list) return;
+  const filtered = filterTag === 'all' ? ideas : ideas.filter(i => i.cat === filterTag);
+  list.innerHTML = filtered.length ? '' : '<p style="font-size:13px;color:var(--butter-primary);padding:12px;text-align:center;">No ideas yet in this category. Add your first one!</p>';
+  filtered.forEach(idea => {
+    const div = document.createElement('div');
+    div.className = 'idea-item';
+    div.innerHTML = `
+      <div class="idea-item-dot" style="background: ${catColors[idea.cat] || '#7F6F58'}"></div>
+      <div><div class="idea-item-text">${idea.text}</div><div class="idea-item-cat">${idea.cat}</div></div>
+      <div class="idea-delete" onclick="deleteIdea(${idea.id})">×</div>`;
+    list.appendChild(div);
+  });
+}
+
+function selectIdeaTag(el, tag) {
+  document.querySelectorAll('.idea-tag-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  filterTag = tag;
+  renderIdeas();
+}
+
+function toggleSwatch(el) { el.classList.toggle('selected'); }
+
+function saveCollection() {
+  const name = document.getElementById('coll-name').value.trim();
+  const fabric = document.getElementById('coll-fabric').value;
+  const theme = document.getElementById('coll-theme').value.trim();
+  if (!name) return alert('Give your collection a name!');
+  const idea = `Collection: "${name}" — ${fabric} | Theme: ${theme || 'TBD'}`;
+  ideas.push({ text: idea, cat: 'collection', id: Date.now() });
+  localStorage.setItem('bb_ideas', JSON.stringify(ideas));
+  document.getElementById('coll-name').value = '';
+  document.getElementById('coll-theme').value = '';
+  renderIdeas();
+  alert(`✨ "${name}" added to your Idea Board!`);
+}
+
+/* ============================================================
+   GLOSSARY DATA
+   ============================================================ */
+const glossaryData = [
+  { term: "Total Addressable Market", abbr: "TAM", def: "The total revenue opportunity available if you captured 100% of the market you're targeting. Think of it as the biggest circle — the entire industry.", ex: "Example: The Indian shapewear + athleisure market is ~$700M TAM." },
+  { term: "Serviceable Addressable Market", abbr: "SAM", def: "The portion of the TAM that you can realistically reach with your business model and channels. Your SAM is always smaller than TAM.", ex: "Example: Premium D2C sculpting wear sold online in India — ~$150M SAM for ButterBawd." },
+  { term: "Serviceable Obtainable Market", abbr: "SOM", def: "The actual slice of the market you plan to win in the next 3–5 years. This is what you're really targeting — and you need to defend it with logic.", ex: "Example: ₹10 Cr+ in Year 3 — the realistic ButterBawd SOM." },
+  { term: "Customer Acquisition Cost", abbr: "CAC", def: "How much money you spend (on average) to acquire one new paying customer. Includes all marketing and sales spend divided by number of new customers.", ex: "Example: If you spend ₹10,000 on Instagram ads and get 20 new customers → CAC = ₹500." },
+  { term: "Lifetime Value", abbr: "LTV", def: "The total revenue you expect to earn from a single customer over their entire relationship with your brand. Higher LTV = more room to spend on acquisition.", ex: "Example: If a customer buys 3 ButterBawd products at ₹1,799 each → LTV = ₹5,397." },
+  { term: "Contribution Margin", abbr: "CM", def: "The money left over from a sale after deducting all variable costs (COGS, shipping, payment gateway, returns, marketing). Your true profitability metric per order.", ex: "Example: ₹1,799 selling price - ₹600 COGS - ₹120 shipping - ₹100 gateway - ₹200 marketing = ₹779 CM (43%)." },
+  { term: "Gross Margin", abbr: "GM", def: "Selling price minus Cost of Goods Sold (COGS) only — before marketing and shipping costs. Measures pure product profitability.", ex: "Example: ₹1,799 - ₹600 COGS = ₹1,199 gross profit → 67% gross margin." },
+  { term: "Earnings Before Interest, Tax, Depreciation & Amortization", abbr: "EBITDA", def: "A measure of your business's overall profitability from operations, before financial engineering. Think of it as 'operating profit' — a cleaner way to measure business health.", ex: "Example: 'We're targeting EBITDA break-even at ₹X Cr revenue by Year 2.'" },
+  { term: "Runway", abbr: "—", def: "How many months of operation you can sustain with your current cash reserves. Calculated as: Cash Available ÷ Monthly Burn Rate.", ex: "Example: ₹50L in bank ÷ ₹5L monthly burn = 10 months runway." },
+  { term: "Burn Rate", abbr: "—", def: "How much money your business spends every month. Understanding your burn rate is critical for managing runway and planning fundraising timelines.", ex: "Example: If you spend ₹3L on salaries, ₹1L on inventory, ₹1L on ads = ₹5L monthly burn." },
+  { term: "Pre-money Valuation", abbr: "—", def: "The value of your company BEFORE the investment comes in. This determines how much equity you give away for a given investment amount.", ex: "Example: Pre-money valuation of ₹5Cr + ₹1Cr investment = Post-money ₹6Cr. Investor gets 1/6 = 16.7% equity." },
+  { term: "Term Sheet", abbr: "—", def: "A non-binding document that outlines the key terms of an investment deal — valuation, equity percentage, board rights, etc. It's the 'offer letter' from an investor before full legal documentation.", ex: "Example: 'The VC sent a term sheet with ₹2Cr investment at ₹8Cr pre-money valuation.'" },
+  { term: "Due Diligence", abbr: "DD", def: "The process where an investor verifies everything you've told them — financials, legal documents, customer data, IP ownership, etc. Expect this after a term sheet.", ex: "Example: 'We're in due diligence with [investor] — they've asked for our last 6 months of Shopify data and our CA-audited accounts.'" },
+  { term: "Return to Origin Rate", abbr: "RTO", def: "The percentage of orders that come back undelivered (customer not home, fake address, etc.). A major pain point and cost in Indian D2C — investors always ask about this.", ex: "Example: 10% RTO rate means 1 in 10 packages comes back, wasting shipping and ops cost." },
+];
+
+function buildGlossary() {
+  const grid = document.getElementById('glossary-grid');
+  if (!grid) return;
+  glossaryData.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'glossary-card';
+    card.innerHTML = `
+      <div class="glossary-term">${item.term}</div>
+      <div class="glossary-abbr">${item.abbr}</div>
+      <div class="glossary-def">${item.def}</div>
+      <div class="glossary-example">${item.ex}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   FUND DIRECTORY
+   ============================================================ */
+const funds = [
+  { name: "Fireside Ventures", focus: "Indian consumer brands — D2C specialists", desc: "India's leading consumer brand focused VC. Portfolio includes Mamaearth, Epigamia, Nat Habit. Deep expertise in D2C brand building. Strong for post-traction brands.", tags: ["Seed", "Series A", "Consumer", "D2C"] },
+  { name: "RPSG Capital", focus: "Indian consumer + lifestyle brands", desc: "Backed by the RP-Sanjiv Goenka Group. Invests in premium lifestyle and consumer brands. Brings retail network access alongside capital.", tags: ["Seed", "Series A", "Lifestyle", "Retail"] },
+  { name: "Titan Capital", focus: "Pre-seed and seed across India", desc: "Run by founders Snapdeal's Kunal Bahl and Rohit Bansal. Very active at early stage. Known for being founder-friendly and fast to decide.", tags: ["Pre-Seed", "Seed", "Founder-Friendly"] },
+  { name: "Kalaari Capital", focus: "Consumer tech + D2C", desc: "One of India's established VCs. Active in consumer brands and digital-first businesses. Good for brands with tech-enabled growth stories.", tags: ["Seed", "Series A", "Consumer"] },
+  { name: "LetsVenture", focus: "Angel syndication platform", desc: "India's largest angel investment platform. Connects startups with 5,000+ angels across India. Great for Seed rounds targeting multiple angels.", tags: ["Angel", "Pre-Seed", "Platform"] },
+  { name: "Sauce.vc", focus: "Early-stage D2C and consumer", desc: "Niche seed fund focused on D2C consumer brands. Smaller tickets but very founder-supportive with operational expertise in brand building.", tags: ["Pre-Seed", "Seed", "D2C"] },
+  { name: "WEH Ventures", focus: "Women-led startups — India", desc: "Specifically invests in women-founded companies. As a woman-led, woman-focused brand, ButterBawd is a natural fit for their thesis.", tags: ["Angel", "Seed", "Women-Led"] },
+  { name: "Saama Capital", focus: "Consumer + healthcare India", desc: "Mid-stage focus but worth putting on radar for Series A. Portfolio includes Sugar Cosmetics — strong understanding of women-focused D2C brands.", tags: ["Series A", "Consumer", "Women-Focused"] },
+];
+
+function buildFunds() {
+  const grid = document.getElementById('fund-cards');
+  if (!grid) return;
+  funds.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'fund-card';
+    card.innerHTML = `
+      <div class="fund-name">${f.name}</div>
+      <div class="fund-focus">${f.focus}</div>
+      <div class="fund-desc">${f.desc}</div>
+      <div class="fund-meta">${f.tags.map(t => `<span class="tag tag-primary">${t}</span>`).join('')}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   DUE DILIGENCE CHECKLIST
+   ============================================================ */
+const ddItems = [
+  "Company incorporation documents (MoA, AoA, Certificate of Incorporation)",
+  "GST registration certificate",
+  "CA-certified financial statements (P&L, Balance Sheet) — even if informal",
+  "Shopify revenue data / sales reports (last 6–12 months)",
+  "Cap table (who owns what % of the company)",
+  "IP documentation — fabric trademark/trade secret records",
+  "Vendor/manufacturer agreements",
+  "Key employee offer letters or contractor agreements",
+  "Bank account statements (last 6 months)",
+  "Customer data summary (orders, returns, repeat rate)",
+  "Website analytics (traffic, conversion rate, avg session)",
+  "Social media analytics (Instagram insights screenshots)",
+  "Press/media clippings (Elle India, New Indian Express links)",
+  "Any existing investor agreements or loans",
+  "Business plan and financial projections (12–18 month model)",
+  "List of assets owned (equipment, inventory value, IP)",
+];
+
+function buildChecklist() {
+  const list = document.getElementById('dd-checklist');
+  if (!list) return;
+  const saved = JSON.parse(localStorage.getItem('bb_dd_checked') || '[]');
+  ddItems.forEach((item, i) => {
+    const li = document.createElement('li');
+    li.className = saved.includes(i) ? 'checked' : '';
+    li.innerHTML = `<div class="cl-check">${saved.includes(i) ? '✓' : ''}</div><span class="cl-text">${item}</span>`;
+    li.onclick = () => {
+      li.classList.toggle('checked');
+      li.querySelector('.cl-check').textContent = li.classList.contains('checked') ? '✓' : '';
+      const nowSaved = JSON.parse(localStorage.getItem('bb_dd_checked') || '[]');
+      const updated = li.classList.contains('checked')
+        ? [...nowSaved, i]
+        : nowSaved.filter(n => n !== i);
+      localStorage.setItem('bb_dd_checked', JSON.stringify(updated));
+    };
+    list.appendChild(li);
+  });
+}
+
+/* ============================================================
+   MISTAKE CARDS
+   ============================================================ */
+const mistakes = [
+  { icon: "📊", title: "Projecting 100x growth with no basis", desc: "Putting ₹100Cr in Year 3 revenue without showing the math. Investors assume you don't understand your business. Always build bottom-up: X units × ₹Y price × Z channels = revenue.", fix: "Build your model from units sold, not from what sounds impressive." },
+  { icon: "🙈", title: "Saying 'we have no competition'", desc: "No sophisticated investor believes this. Saying it signals that you haven't done your homework on the market. There is ALWAYS competition — direct, indirect, or substitute behavior.", fix: "Acknowledge competitors. Then clearly explain why you win." },
+  { icon: "💡", title: "Leading with features, not the problem", desc: "Starting with 'our SkinMelt fabric has 76% Polyamide' before the investor understands WHY it matters. Features don't fundraise — problems and emotions do.", fix: "Always lead with the customer pain. Then show how your product solves it." },
+  { icon: "📉", title: "Ignoring unit economics", desc: "Knowing revenue but not margin is a red flag. If you can't tell an investor what your contribution margin is, they'll wonder if the business is sustainable.", fix: "Calculate COGS → Gross Margin → Contribution Margin before any pitch meeting." },
+  { icon: "💰", title: "Vague use of funds ('for growth')", desc: "'We'll use the investment for growth' tells the investor nothing. It signals you haven't thought carefully about deployment — and might waste their money.", fix: "Be specific: % for inventory, % for team, % for marketing, % for tech. Defend each number." },
+  { icon: "🤝", title: "Asking for too much or too little", desc: "Too much: signals unrealistic expectations. Too little: signals you haven't thought about what you actually need. Get the number right by working backwards from milestones.", fix: "Calculate 18 months of runway + specific milestones. That's your ask." },
+];
+
+function buildMistakes() {
+  const list = document.getElementById('mistakes-list');
+  if (!list) return;
+  mistakes.forEach(m => {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:var(--white);border-radius:var(--radius-md);padding:20px;border:1px solid var(--butter-pale);margin-bottom:14px;transition:var(--transition);';
+    div.onmouseenter = () => div.style.boxShadow = 'var(--shadow-hover)';
+    div.onmouseleave = () => div.style.boxShadow = '';
+    div.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <div style="font-size:32px;flex-shrink:0;">${m.icon}</div>
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--butter-dark);margin-bottom:8px;">${m.title}</div>
+          <div style="font-size:13px;color:var(--butter-walnut);line-height:1.6;margin-bottom:10px;">${m.desc}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--accent-sage);display:flex;align-items:center;gap:6px;">✅ Fix: ${m.fix}</div>
+        </div>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+window.addEventListener('load', () => {
+  buildQA();
+  updateCard();
+  renderIdeas();
+  buildGlossary();
+  buildFunds();
+  buildChecklist();
+  buildMistakes();
+});
+
+/* ============================================================
+   AUTO-SAVE DECK FIELDS
+   ============================================================ */
+document.addEventListener('input', (e) => {
+  if (e.target.id && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+    localStorage.setItem('bb_' + e.target.id, e.target.value);
+  }
+});
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('input, textarea').forEach(el => {
+    if (el.id) {
+      const saved = localStorage.getItem('bb_' + el.id);
+      if (saved !== null) el.value = saved;
+    }
+  });
+});
+</script>
+</body>
+</html>
